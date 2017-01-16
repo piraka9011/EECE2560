@@ -5,6 +5,7 @@
 #ifndef CODE_H
 #define CODE_H
 
+#include <algorithm>
 #include <vector>
 #include <cstdlib>
 
@@ -14,6 +15,7 @@ private:
     int n;
     int m;
     std::vector<int> secretCode;
+    std::vector<int> userGuess;
 
 public:
     // Constructor
@@ -21,10 +23,11 @@ public:
     // Inits code randomly
     void randomInit();
     // returns the number of correct digits in the correct location
-    int checkCorrect(std::vector<int> codeGuess);
-
+    int checkCorrect(code codeGuess);
     // returns the number of correct digits in the incorrect location
-    int checkIncorrect(std::vector<int> codeGuess);
+    int checkIncorrect(code codeGuess);
+    void setCode(std::vector<int> userCode){userGuess = userCode;};
+    std::vector<int> getCode(){return userGuess;};
 };
 
 
