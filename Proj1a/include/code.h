@@ -16,6 +16,7 @@ private:
     int m;
     std::vector<int> secretCode;
     std::vector<int> userGuess;
+    std::vector<bool> rightDig;
 
 public:
     // Constructor
@@ -23,11 +24,13 @@ public:
     // Inits code randomly
     void randomInit();
     // returns the number of correct digits in the correct location
-    int checkCorrect(code codeGuess);
+    int checkCorrect(code guessCode);
     // returns the number of correct digits in the incorrect location
-    int checkIncorrect(code codeGuess);
-    void setCode(std::vector<int> userCode){userGuess = userCode;};
-    std::vector<int> getCode(){return userGuess;};
+    int checkIncorrect(code guessCode);
+    // Sets a code to member guess code
+    void setGuessCode(std::vector<int> userCode){userGuess = userCode;};
+    // Returns a guess code
+    std::vector<int> getGuessCode(){return userGuess;};
 };
 
 
