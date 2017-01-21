@@ -6,8 +6,9 @@
 #define CODE_H
 
 #include <algorithm>
-#include <vector>
 #include <cstdlib>
+#include <iostream>
+#include <vector>
 
 class code {
 
@@ -27,6 +28,8 @@ public:
     int checkCorrect(code guessCode);
     // returns the number of correct digits in the incorrect location
     int checkIncorrect(code guessCode);
+    // Check if user won or not
+    bool checkWin();
     // Sets a code to member guess code
     void setGuessCode(std::vector<int> userCode){userGuess = userCode;};
     // Returns a guess code

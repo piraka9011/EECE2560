@@ -28,7 +28,7 @@ int code::checkCorrect(code guessCode) {
             rightDig.at(i) = true;
         }
     }
-    // Return the number of guesses
+    // Return the number of correct guesses
     return correctPos;
 }
 
@@ -47,9 +47,20 @@ int code::checkIncorrect(code guessCode) {
             // If the digit is in the guess code, increment count of incorrect position
             if (guessCode.getGuessCode().at(i) == digits.at(j)){
                 // However, check if the digit is already counted
-                if (!rightDig.at(i))
+                if (!rightDig.at(i)) {
+                    rightDig.at(i) = true;
                     incorrectPos++;
+                }
             }
         }
     }
+
+    // Return number of correct digits in incorrect location
+    return incorrectPos;
+}
+
+bool code::checkWin() {
+    // If any of the digits from start to end
+    if ( std::any_of(rightDig.begin(), rightDig.end(), [](bool i){return i;}))
+        return true;
 }
