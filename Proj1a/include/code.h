@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <cstdlib>
 #include <iostream>
+#include <sstream>
 #include <vector>
 
 class code {
@@ -22,18 +23,34 @@ private:
 public:
     // Constructor
     code(int n, int m);
+
     // Inits code randomly
     void randomInit();
+
     // returns the number of correct digits in the correct location
     int checkCorrect(code guessCode);
+
     // returns the number of correct digits in the incorrect location
     int checkIncorrect(code guessCode);
+
     // Check if user won or not
     bool checkWin();
+
     // Sets a code to member guess code
     void setGuessCode(std::vector<int> userCode){userGuess = userCode;};
+
     // Returns a guess code
     std::vector<int> getGuessCode(){return userGuess;};
+
+    // Converts input string to vector
+    static std::vector<int> string2vector(std::string str2parse);
+
+    // Prints secret code
+    void printSecretCode(){for (auto i: secretCode)std::cout << i << ' ';};
+
+    /// DEBUGGING ONLY
+    // Returns secretCode
+    std::vector<int> getSecretCode(){return secretCode;};
 };
 
 

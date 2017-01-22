@@ -13,7 +13,7 @@ code::code(int n, int m){
 void code::randomInit(){
     // Add random numbers to secret code in range [0, m-1]
     for (int i = 0; i < n; i++)
-        secretCode.push_back(rand() % (m-1));
+        secretCode.push_back(rand() % m);
     // Set the size to determine the
     rightDig.resize(n, false);
 }
@@ -59,8 +59,23 @@ int code::checkIncorrect(code guessCode) {
     return incorrectPos;
 }
 
+// Checks if the game is won
 bool code::checkWin() {
     // If any of the digits from start to end
     if ( std::any_of(rightDig.begin(), rightDig.end(), [](bool i){return i;}))
         return true;
+    else
+        return false;
 }
+
+std::vector<int> code::string2vector(std::string str2parse) {
+    std::stringstream ss(str2parse);    // StringStream object to parse input
+    std::vector<int> parsedString;      // Vector to store integers
+    int temp;       // Temp. var. to put digits in vector
+    // Get digits and place in vector
+    while (ss >> temp)
+        parsedString.push_back(temp);
+
+    return parsedString;
+}
+

@@ -4,13 +4,17 @@
 int main() {
 
     //Declaring the length of the code and the range of the numbers variables
-    int length,range, count = 0;
+    int length, range;
+    int correctPos = 0, incorrectPos=0 , count = 0;
     bool win = false;
+    std::string guess;
+    std::vector<int> secretTemp;
+
 
     //Prompting the user for two inputs to assign to length and range
     std::cout << "Please enter the length of the desired secret code: ";
     std::cin >> length;
-    std::cout << "Please enter the range of digits: ";
+    std::cout << "\nPlease enter the range of digits: ";
     std::cin >> range;
 
     //Creating two objects in class code; Where CG (Code Guess) and SC(Secret Code).
@@ -20,15 +24,20 @@ int main() {
     // Initialize secret code with random numbers
     SC.randomInit();
 
-    //Reminder of the parameters that the user passed
-    std::cout<<"Enter your guess\n Remember that the code length is "
-             <<range<<" and the range is from "<<0 << " To " <<length;
+    // Print secret code for debugging
+    SC.printSecretCode();
 
-    while (SC.checkWin() && count < 10 ) {
+    // Loop while user has not won or less than 10 tries have been done
+    while (!SC.checkWin() || count < 10 ) {
+        // Prompt user to enter a guess
         std::cout << "Enter guess code: ";
+        std::cin >> guess;
 
-        //Calling the check correct
-        SC.checkCorrect(GC);
+        // Parse input string and set guess code
+        GC.setGuessCode(code::string2vector(guess));
+        //Calling the check in/correct
+        correctPos = SC.checkCorrect(GC);
+        incorrectPos = SC.checkIncorrect(GC);
     }
 
     return 0;
