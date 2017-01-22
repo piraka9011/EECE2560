@@ -34,7 +34,7 @@ int code::checkCorrect(code guessCode) {
 
 int code::checkIncorrect(code guessCode) {
     // Make new vector to store possible digits
-    std::vector<int> digits(m-1);
+    std::vector<int> digits(m);
     // Fill digits vector with numbers from 0 to m-1
     std::iota(digits.begin(), digits.end(), 0);
     // Variable to count the number of digits in the code but in the incorrect position
