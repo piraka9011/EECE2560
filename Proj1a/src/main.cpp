@@ -4,17 +4,16 @@
 int main() {
 
     //Declaring the length of the code and the range of the numbers variables
-    int length, range;
+    int length, range, guess;
     int correctPos = 0, incorrectPos=0 , count = 0;
     bool win = false;
-    std::string guess;
     std::vector<int> secretTemp;
 
 
     //Prompting the user for two inputs to assign to length and range
     std::cout << "Please enter the length of the desired secret code: ";
     std::cin >> length;
-    std::cout << "\nPlease enter the range of digits: ";
+    std::cout << "Please enter the range of digits: ";
     std::cin >> range;
 
     //Creating two objects in class code; Where CG (Code Guess) and SC(Secret Code).
@@ -28,17 +27,25 @@ int main() {
     SC.printSecretCode();
 
     // Loop while user has not won or less than 10 tries have been done
-    while (!SC.checkWin() || count < 10 ) {
+    while ( !win && count < 10 ) {
         // Prompt user to enter a guess
         std::cout << "Enter guess code: ";
         std::cin >> guess;
 
         // Parse input string and set guess code
-        GC.setGuessCode(code::string2vector(guess));
+        GC.setGuessCode(code::int2vector(guess));
         //Calling the check in/correct
-        correctPos = SC.checkCorrect(GC);
-        incorrectPos = SC.checkIncorrect(GC);
+        std::cout << "Correct digits in correct position: "
+                  << SC.checkCorrect(GC) << '\n';
+        std::cout << "Correct digits in incorrect position: "
+                  << SC.checkIncorrect(GC) << '\n';
+
+        win = SC.checkWin();
+        count++;
     }
+
+    // Print whether user lost or won
+    SC.printResult();
 
     return 0;
 }

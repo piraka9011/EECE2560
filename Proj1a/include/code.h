@@ -5,10 +5,10 @@
 #ifndef CODE_H
 #define CODE_H
 
-#include <algorithm>
-#include <cstdlib>
+#include <algorithm>    // std::reverse
+#include <cstdlib>      // rand()
+#include <functional>   // std::not_equal_to
 #include <iostream>
-#include <sstream>
 #include <vector>
 
 class code {
@@ -43,7 +43,10 @@ public:
     std::vector<int> getGuessCode(){return userGuess;};
 
     // Converts input string to vector
-    static std::vector<int> string2vector(std::string str2parse);
+    static std::vector<int> int2vector(int int2parse);
+
+    // Prints whether user won or not
+    void printResult();
 
     // Prints secret code
     void printSecretCode(){for (auto i: secretCode)std::cout << i << ' ';};

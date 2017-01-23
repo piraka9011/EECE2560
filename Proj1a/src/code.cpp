@@ -62,20 +62,33 @@ int code::checkIncorrect(code guessCode) {
 // Checks if the game is won
 bool code::checkWin() {
     // If any of the digits from start to end
-    if ( std::any_of(rightDig.begin(), rightDig.end(), [](bool i){return i;}))
+    if ( std::all_of(rightDig.begin(), rightDig.end(),
+                     [](bool i){return i;}) )
         return true;
     else
         return false;
 }
 
-std::vector<int> code::string2vector(std::string str2parse) {
-    std::stringstream ss(str2parse);    // StringStream object to parse input
-    std::vector<int> parsedString;      // Vector to store integers
-    int temp;       // Temp. var. to put digits in vector
-    // Get digits and place in vector
-    while (ss >> temp)
-        parsedString.push_back(temp);
+std::vector<int> code::int2vector(int int2parse) {
+    std::vector<int> parsedInt;
 
-    return parsedString;
+    // Mod 10 to get digits, divide by 10 until number doesn't exist
+    while (int2parse > 0){
+        int digit = int2parse % 10;
+        int2parse /= 10;
+        parsedInt.push_back(digit);
+    }
+
+    // Flip digits to correct order
+    std::reverse(parsedInt.begin(), parsedInt.end());
+
+    return parsedInt;
+}
+
+void code::printResult() {
+    if (checkWin())
+        std::cout << "\nCongratulations, you win!";
+    else
+        std::cout << "\nYou lost! Try Again...";
 }
 
