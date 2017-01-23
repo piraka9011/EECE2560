@@ -9,6 +9,7 @@
 #include <cstdlib>      // rand()
 #include <functional>   // std::not_equal_to
 #include <iostream>
+#include <numeric>      // std::iota
 #include <vector>
 
 class code {
@@ -34,7 +35,7 @@ public:
     int checkIncorrect(code guessCode);
 
     // Check if user won or not
-    bool checkWin();
+    bool checkWin(int correctGuess);
 
     // Sets a code to member guess code
     void setGuessCode(std::vector<int> userCode){userGuess = userCode;};
@@ -42,11 +43,8 @@ public:
     // Returns a guess code
     std::vector<int> getGuessCode(){return userGuess;};
 
-    // Converts input string to vector
-    static std::vector<int> int2vector(int int2parse);
-
     // Prints whether user won or not
-    void printResult();
+    void printResult(bool result);
 
     // Prints secret code
     void printSecretCode(){for (auto i: secretCode)std::cout << i << ' ';};

@@ -1,12 +1,28 @@
 
 #include "../include/code.h"
 
+std::vector<int> int2vector(int int2parse) {
+    std::vector<int> parsedInt;
+
+    // Mod 10 to get digits, divide by 10 until number doesn't exist
+    while (int2parse > 0){
+        int digit = int2parse % 10;
+        int2parse /= 10;
+        parsedInt.push_back(digit);
+    }
+
+    // Flip digits to correct order
+    std::reverse(parsedInt.begin(), parsedInt.end());
+
+    return parsedInt;
+}
+
 int main() {
 
     //Declaring the length of the code and the range of the numbers variables
     int length, range, guess;
-    int correctPos = 0, incorrectPos=0 , count = 0;
-    bool win = false;
+    int count = 0;
+    bool result = false;
     std::vector<int> secretTemp;
 
 
@@ -27,25 +43,25 @@ int main() {
     SC.printSecretCode();
 
     // Loop while user has not won or less than 10 tries have been done
-    while ( !win && count < 10 ) {
+    while ( !result && count < 10 ) {
         // Prompt user to enter a guess
         std::cout << "Enter guess code: ";
         std::cin >> guess;
 
         // Parse input string and set guess code
-        GC.setGuessCode(code::int2vector(guess));
+        GC.setGuessCode(int2vector(guess));
         //Calling the check in/correct
         std::cout << "Correct digits in correct position: "
                   << SC.checkCorrect(GC) << '\n';
         std::cout << "Correct digits in incorrect position: "
                   << SC.checkIncorrect(GC) << '\n';
 
-        win = SC.checkWin();
+        result = SC.checkWin(SC.checkCorrect(GC));
         count++;
     }
 
     // Print whether user lost or won
-    SC.printResult();
+    SC.printResult(result);
 
     return 0;
 }
