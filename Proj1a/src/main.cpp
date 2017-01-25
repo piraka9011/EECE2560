@@ -42,6 +42,9 @@ int main() {
     // Print secret code for debugging
     SC.printSecretCode();
 
+    // Input conditions
+    std::cout << "\nPlease input your guess with no spaces\n";
+
     // Loop while user has not won or less than 10 tries have been done
     while ( !result && count < 10 ) {
         // Prompt user to enter a guess

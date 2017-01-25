@@ -55,6 +55,9 @@ int code::checkIncorrect(code guessCode) {
         }
     }
 
+    // Reset right digits vector
+    std::replace(rightDig.begin(), rightDig.end(), true, false);
+
     // Return number of correct digits in incorrect location
     return incorrectPos;
 }
