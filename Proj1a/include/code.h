@@ -11,6 +11,8 @@
 #include <iostream>
 #include <numeric>      // std::iota
 #include <vector>
+#include <ctime>
+
 
 class code {
 

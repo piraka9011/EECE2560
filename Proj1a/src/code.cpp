@@ -11,6 +11,8 @@ code::code(int n, int m){
 
 // Inits secret code randomly
 void code::randomInit(){
+    // Initiate a time dependent seed to create random code
+    srand(time(0));
     // Add random numbers to secret code in range [0, m-1]
     for (int i = 0; i < n; i++)
         secretCode.push_back(rand() % m);

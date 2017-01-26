@@ -1,4 +1,8 @@
-
+/*Project 1a                 Turki Alrifaie Anas Abou Allaban
+ *
+ * This main file contains all the user prompts and class function calls.
+ * In addition, it includes all of the object class (code) declarations.
+ * */
 #include "../include/code.h"
 
 std::vector<int> int2vector(int int2parse) {
@@ -26,13 +30,15 @@ int main() {
     std::vector<int> secretTemp;
 
 
+
     //Prompting the user for two inputs to assign to length and range
     std::cout << "Please enter the length of the desired secret code: ";
-    std::cin >> length;
+    std::cin >> length; // will be used to assign length
     std::cout << "Please enter the range of digits: ";
-    std::cin >> range;
+    std::cin >> range; // Will be used to assign range of numbers
 
     //Creating two objects in class code; Where CG (Code Guess) and SC(Secret Code).
+    //Passing the same range and length to both class object
     code SC(length,range);
     code GC(length,range);
 
@@ -46,6 +52,7 @@ int main() {
     std::cout << "\nPlease input your guess with no spaces\n";
 
     // Loop while user has not won or less than 10 tries have been done
+
     while ( !result && count < 10 ) {
         // Prompt user to enter a guess
         std::cout << "Enter guess code: ";
@@ -55,11 +62,13 @@ int main() {
         GC.setGuessCode(int2vector(guess));
         //Calling the check in/correct
         std::cout << "Correct digits in correct position: "
-                  << SC.checkCorrect(GC) << '\n';
+                  << SC.checkCorrect(GC) << '\n'; // Check how many correct digits object GC has
         std::cout << "Correct digits in incorrect position: "
-                  << SC.checkIncorrect(GC) << '\n';
+                  << SC.checkIncorrect(GC) << '\n'; // Check how many incorrect digits object GC has
 
+        //Pass the number of correct digits to SC check win function to decide whether to end loop or not
         result = SC.checkWin(SC.checkCorrect(GC));
+        //Increment the counter
         count++;
     }
 
