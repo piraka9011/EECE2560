@@ -17,6 +17,15 @@ std::vector<int> int2vector(int int2parse) {
     return parsedInt;
 }
 
+int getSize(int number) {
+    int length = 0;
+    while (number){
+        number /= 10;
+        length++;
+    }
+    return length;
+}
+
 int main() {
 
     //Declaring the length of the code and the range of the numbers variables
@@ -25,9 +34,14 @@ int main() {
     bool result = false;
     std::vector<int> secretTemp;
 
+    std::cout << "****************************************************\n";
+    std::cout << "*                                                  *\n";
+    std::cout << "*______________ Welcome to MasterMind! ____________*\n";
+    std::cout << "*               ~~~~~~~~~~~~~~~~~~~~~~             *\n";
+    std::cout << "****************************************************\n";
 
     //Prompting the user for two inputs to assign to length and range
-    std::cout << "Please enter the length of the desired secret code: ";
+    std::cout << "\nPlease enter the length of the desired secret code: ";
     std::cin >> length;
     std::cout << "Please enter the range of digits: ";
     std::cin >> range;
@@ -47,10 +61,12 @@ int main() {
 
     // Loop while user has not won or less than 10 tries have been done
     while ( !result && count < 10 ) {
-        // Prompt user to enter a guess
-        std::cout << "Enter guess code: ";
-        std::cin >> guess;
-
+        // Make sure user enters the right amount of digits
+        do {
+            // Prompt user to enter a guess
+            std::cout << "Enter guess code: ";
+            std::cin >> guess;
+        } while (getSize(guess) != length);
         // Parse input string and set guess code
         GC.setGuessCode(int2vector(guess));
         //Calling the check in/correct
