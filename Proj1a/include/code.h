@@ -1,6 +1,8 @@
+// Anas Abou Allaban & Turki El-Refai - Proj1a
+// Code Class Definition
 //
-// Created by piraka9011 on 1/15/17.
-//
+// This header file defines the private & public data members and functions
+// that will be part of the Code class
 
 #ifndef CODE_H
 #define CODE_H
@@ -14,14 +16,15 @@
 #include <ctime>
 
 
-class code {
+class code
+{
 
 private:
-    int n;
-    int m;
-    std::vector<int> secretCode;
-    std::vector<int> userGuess;
-    std::vector<bool> rightDig;
+    int n;  // Length
+    int m;  // Range
+    std::vector<int> secretCode; // Vector to store secret code
+    std::vector<int> userGuess;  // Vector to store guess code
+    std::vector<bool> rightDig;  // Used to check if digit has been checked
 
 public:
     // Constructor
@@ -30,10 +33,10 @@ public:
     // Inits code randomly
     void randomInit();
 
-    // returns the number of correct digits in the correct location
+    // Returns the number of correct digits in the correct location
     int checkCorrect(code guessCode);
 
-    // returns the number of correct digits in the incorrect location
+    // Returns the number of correct digits in the incorrect location
     int checkIncorrect(code guessCode);
 
     // Check if user won or not
@@ -55,6 +58,5 @@ public:
     // Returns secretCode
     std::vector<int> getSecretCode(){return secretCode;};
 };
-
 
 #endif //CODE_H
