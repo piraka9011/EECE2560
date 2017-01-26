@@ -50,7 +50,7 @@ public:
     void printResult(bool result);
 
     // Prints secret code
-    void printSecretCode(){for (auto i: secretCode)std::cout << i << ' ';};
+    void printSecretCode(){for (auto i: secretCode)std::cout << i << " ";};
 
     /// DEBUGGING ONLY
     // Returns secretCode

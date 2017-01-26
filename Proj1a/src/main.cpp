@@ -32,7 +32,7 @@ int main() {
     int length, range, guess;
     int count = 0;
     bool result = false;
-    std::vector<int> secretTemp;
+    std::vector<int> tempGuess;
 
     std::cout << "****************************************************\n";
     std::cout << "*                                                  *\n";
@@ -57,18 +57,19 @@ int main() {
     SC.printSecretCode();
 
     // Input conditions
-    std::cout << "\nPlease input your guess with no spaces\n";
+    std::cout << "\nPlease input your guess digit by digit with no spaces\n";
 
     // Loop while user has not won or less than 10 tries have been done
     while ( !result && count < 10 ) {
         // Make sure user enters the right amount of digits
-        do {
-            // Prompt user to enter a guess
-            std::cout << "Enter guess code: ";
+        for (int i = 0; i < length; i++)
+        {
             std::cin >> guess;
-        } while (getSize(guess) != length);
-        // Parse input string and set guess code
-        GC.setGuessCode(int2vector(guess));
+            tempGuess.push_back(guess);
+        }
+
+        // Set the user input to the guess code
+        GC.setGuessCode(tempGuess);
         //Calling the check in/correct
         std::cout << "Correct digits in correct position: "
                   << SC.checkCorrect(GC) << '\n';
