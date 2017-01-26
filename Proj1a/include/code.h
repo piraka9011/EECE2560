@@ -15,7 +15,6 @@
 #include <vector>
 #include <ctime>
 
-
 class code
 {
 

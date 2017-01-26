@@ -1,4 +1,8 @@
-
+/* Turki Alrifaie Anas Abou Allaban - Proj1a
+ * This main file holds the implementation of the class code.
+ * It declares two class objects GC and SC to call the class Code
+ * function Check correct and incorrect
+ */
 #include "../include/code.h"
 
 std::vector<int> int2vector(int int2parse) {
