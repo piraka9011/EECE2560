@@ -67,14 +67,14 @@ int code::checkIncorrect(code guessCode)
     for (int i = 0; i < n; i++)
     {
         // Loop through all possible digits
-        for (int j = 0; j < digits.size(); j++)
+        for (int j = 0; j < n; j++)
         {
-            // If the digit is in the guess code, increment count of
-            // incorrect position
-            if (guessCode.getGuessCode().at(i) == digits.at(j))
+            // Check if the digit is already counted
+            if (!rightDig.at(i) && (j != i))
             {
-                // However, check if the digit is already counted
-                if (!rightDig.at(i))
+                // If the digit is in the guess code, increment count of
+                // incorrect position
+                if (guessCode.getGuessCode().at(i) == secretCode.at(j))
                 {
                     // If its not counted, increment incorrect count and set
                     // digit position as checked
