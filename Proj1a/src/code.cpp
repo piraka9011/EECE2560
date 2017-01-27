@@ -1,10 +1,14 @@
-// Anas Abou Allaban & Turki El-Refai - Proj1a
-// Code Class Implementation
-//
-// This file implements the member functions of the Code class.
-// Implementations include: secret code initialization, check number of
-// in/correct digits in in/correct location, checking if the game was won,
-// and printing the result
+/**
+	EECE2560: Proj1a
+	code.cpp
+	Purpose: This file implements the member functions of the Code class.
+    Implementations include: secret code initialization, check number of
+    in/correct digits in in/correct location, checking if the game was won,
+    and printing the result
+	@author: Anas Abou Allaban & Turki Alrifaie
+	@version: 1.0 1/26/17
+
+*/
 
 #include "../include/code.h"
 

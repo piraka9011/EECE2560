@@ -1,37 +1,17 @@
-/* Turki Alrifaie & Anas Abou Allaban - Proj1a
- * This main file holds the implementation of the class code.
- * It declares two class objects GC and SC to call the class Code
- * function Check correct and incorrect
- */
+/**
+	EECE2560: Proj1a
+	main.cpp
+	Purpose: Main function to implement the game and call all necessary classes
+    It declares two class objects GC and SC to call the class Code
+    function Check correct and incorrect
+	@author: Anas Abou Allaban & Turki Alrifaie
+	@version: 1.0 1/26/17
+
+*/
 #include "../include/code.h"
 
-std::vector<int> int2vector(int int2parse) {
-    std::vector<int> parsedInt;
-
-    // Mod 10 to get digits, divide by 10 until number doesn't exist
-    while (int2parse > 0){
-        int digit = int2parse % 10;
-        int2parse /= 10;
-        parsedInt.push_back(digit);
-    }
-
-    // Flip digits to correct order
-    std::reverse(parsedInt.begin(), parsedInt.end());
-
-    return parsedInt;
-}
-
-int getSize(int number) {
-    int length = 0;
-    while (number){
-        number /= 10;
-        length++;
-    }
-    return length;
-}
-
-int main() {
-
+int main()
+{
     //Declaring the length of the code and the range of the numbers variables
     int length, range, guess;
     int count = 0;

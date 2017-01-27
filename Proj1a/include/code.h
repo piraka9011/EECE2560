@@ -1,8 +1,12 @@
-// Anas Abou Allaban & Turki El-Refai - Proj1a
-// Code Class Definition
-//
-// This header file defines the private & public data members and functions
-// that will be part of the Code class
+/**
+	EECE2560: Proj1a
+	code.h
+	Purpose: This header file defines the private & public data members and functions
+    that will be part of the Code class
+	@author: Anas Abou Allaban & Turki Alrifaie
+	@version: 1.0 1/26/17
+
+*/
 
 #ifndef CODE_H
 #define CODE_H
