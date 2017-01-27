@@ -8,12 +8,12 @@
 #define CODE_H
 
 #include <algorithm>    // std::reverse
-#include <cstdlib>      // rand()
+#include <cstdlib>      // rand() & srand()
+#include <ctime>        // time()
 #include <functional>   // std::not_equal_to
 #include <iostream>
 #include <numeric>      // std::iota
 #include <vector>
-#include <ctime>
 
 class code
 {

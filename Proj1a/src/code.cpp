@@ -19,10 +19,10 @@ code::code(int n, int m)
 // Secret Code initializer
 void code::randomInit()
 {
-
+    // Generate random seed
+    srand(time(0));
     // Add random numbers to secret code in range [0, m-1]
     for (int i = 0; i < n; i++)
-        srand(time());
         secretCode.push_back(rand() % m);
     // Resize the right digits vector that checks to see if a digit has been
     // checked according to the size of the secret code

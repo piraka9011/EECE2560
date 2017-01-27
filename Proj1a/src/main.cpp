@@ -1,4 +1,4 @@
-/* Turki Alrifaie Anas Abou Allaban - Proj1a
+/* Turki Alrifaie & Anas Abou Allaban - Proj1a
  * This main file holds the implementation of the class code.
  * It declares two class objects GC and SC to call the class Code
  * function Check correct and incorrect
@@ -60,18 +60,16 @@ int main() {
     // Print secret code for debugging
     SC.printSecretCode();
 
-    // Input conditions
-    std::cout << "\nPlease input your guess digit by digit with no spaces\n";
-
     // Loop while user has not won or less than 10 tries have been done
     while ( !result && count < 10 ) {
+        // Input conditions
+        std::cout << "\nPlease input your guess digit by digit with no spaces\n";
         // Make sure user enters the right amount of digits
         for (int i = 0; i < length; i++)
         {
             std::cin >> guess;
             tempGuess.push_back(guess);
         }
-
         // Set the user input to the guess code
         GC.setGuessCode(tempGuess);
         //Calling the check in/correct
@@ -80,7 +78,11 @@ int main() {
         std::cout << "Correct digits in incorrect position: "
                   << SC.checkIncorrect(GC) << '\n';
 
+        // Reset our tempGuess vector
+        tempGuess.clear();
+        // Update results
         result = SC.checkWin(SC.checkCorrect(GC));
+        // Increment count
         count++;
     }
 
