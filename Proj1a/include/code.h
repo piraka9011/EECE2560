@@ -54,12 +54,10 @@ public:
     // Prints whether user won or not
     void printResult(bool result);
 
-    // Prints secret code
-    void printSecretCode(){for (auto i: secretCode)std::cout << i << " ";};
-
     /// DEBUGGING ONLY
-    // Returns secretCode
+    // Returns secret code as vector
     std::vector<int> getSecretCode(){return secretCode;};
+
 };
 
 #endif //CODE_H
