@@ -54,6 +54,10 @@ public:
     // Prints whether user won or not
     void printResult(bool result);
 
+    // Gets for the correct/incorrect numbers
+    int getCorrect(code guessCode){return checkCorrect(guessCode);}
+    int getIncorrect(code guessCode){return checkIncorrect(guessCode);}
+
     /// DEBUGGING ONLY
     // Returns secret code as vector
     std::vector<int> getSecretCode(){return secretCode;};

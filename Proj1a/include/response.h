@@ -5,6 +5,9 @@
 #ifndef PROJ1A_RESPONSE_H
 #define PROJ1A_RESPONSE_H
 
+#include <iostream>
+#include <ostream>
+#include "../include/code.h"
 
 class response {
 
@@ -18,13 +21,16 @@ public:
     response();
 
     // Setters and getters for check in/correct
-    void setCorrect();
-    int getCorrect(){ return correct;};
-    int getIncorrect(){ return incorrect;};
+    void setCorrect(code guessCode)
+        { correct = guessCode.getCorrect(guessCode);};
+    void setIncorrect(code guessCode)
+        { incorrect = guessCode.getInorrect(guessCode);};
+    int getCorrect() const { return correct;};
+    int getIncorrect() const { return incorrect;};
 
     /// May need to add & operator to param if logic errors pop up
-    response operator <<(const response);
-    bool operator ==(const response);
+    friend std::ostream& operator <<(const response resp);
+    bool operator ==(const response resp);
 
 
 

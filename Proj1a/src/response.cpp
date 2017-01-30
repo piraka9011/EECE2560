@@ -2,7 +2,6 @@
 // Created by piraka9011 on 1/28/17.
 //
 
-#include <iostream>
 #include "../include/response.h"
 
 response::response()
@@ -10,12 +9,17 @@ response::response()
 
 }
 
-void response::setCorrect()
+bool response::operator==(response)
 {
 
 }
 
-response response::operator<<(const response)
+friend std::ostream& response::operator<<(std::ostream& os, const response resp)
 {
-    std::cout <<
+    os << "Correct digits in correct position: "
+       << resp.getCorrect() << '\n';
+    os << "Correct digits in incorrect position: "
+       << resp.getIncorrect() << '\n';
+    return os;
 }
+
