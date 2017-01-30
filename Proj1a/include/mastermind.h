@@ -6,6 +6,7 @@
 #define PROJ1A_MASTERMIND_H
 
 #include "code.h"
+#include "response.h"
 
 class mastermind
 {
@@ -28,7 +29,7 @@ public:
     response getResponse(code guessCode, code secretCode);
 
     // Checks if game is won
-    bool isSolved(response userGuess);
+    bool isSolved(response respL, response respR);
 
     // Main function that inits random code and prints game console
     void playGame();

@@ -14,6 +14,8 @@ class response {
 private:
     int correct;
     int incorrect;
+    std::vector<int> secretCode;
+    std::vector<int> guessCode;
 
 public:
 
@@ -22,15 +24,19 @@ public:
 
     // Setters and getters for check in/correct
     void setCorrect(code guessCode)
-        { correct = guessCode.getCorrect(guessCode);};
-    void setIncorrect(code guessCode)
-        { incorrect = guessCode.getInorrect(guessCode);};
+        { correct = inputCode.checkCorrect(guessCode);};
     int getCorrect() const { return correct;};
-    int getIncorrect() const { return incorrect;};
+
+    void setIncorrect(code guessCode)
+        { incorrect = guessCode.checkInorrect(guessCode);};
+    int getIncorrect() const { return incorrect;}
+
+    void setGuessCode(code guessCode){ guessCode.getGuessCode();}
+    void setSecretCode(code secretCode) { secretCode.getSecretCode();}
 
     /// May need to add & operator to param if logic errors pop up
     friend std::ostream& operator <<(const response resp);
-    bool operator ==(const response resp);
+    bool operator ==(const response respL, const response respR);
 
 
 

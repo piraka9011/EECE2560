@@ -9,9 +9,16 @@ response::response()
 
 }
 
-bool response::operator==(response)
-{
 
+bool response::operator ==(const response respL, const response respR)
+{
+    for (int i = 0; i < respL.secretCode.size(); i++)
+    {
+        if (respL.secretCode.at(i) != respR.guessCode.at(i))
+            return false;
+        else
+            return true;
+    }
 }
 
 friend std::ostream& response::operator<<(std::ostream& os, const response resp)

@@ -28,12 +28,17 @@ code mastermind::humanGuess()
     return GC;
 }
 
-response mastermind::getResponse(code guessCode, code secretCode)
+response mastermind::getResponse(code guessCode, code secrectCode)
 {
-
+    response respGuess;
+    respGuess.setGuessCode(guessCode);
+    respGuess.setSecretCode(secrectCode);
+    respGuess.setCorrect(guessCode);
+    respGuess.setIncorrect(guessCode);
+    return respGuess;
 }
 
-bool mastermind::isSolved(response userGuess)
+bool mastermind::isSolved(response respL, response respR)
 {
 
 }
