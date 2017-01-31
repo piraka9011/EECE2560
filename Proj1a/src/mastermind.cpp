@@ -3,11 +3,6 @@
 //
 
 #include "../include/mastermind.h"
-mastermind::mastermind(int n, int m) :
-    masterCode(n, m)
-{
-    length = n, range = m;
-}
 
 code mastermind::humanGuess()
 {
@@ -61,7 +56,7 @@ void mastermind::playGame()
     while ( !result && count < 10 )
     {
         // Input conditions
-        std::cout << "\nPlease input your guess digit by digit with no spaces\n";
+        std::cout << "\nPlease input your guess digit by digit with no spaces: \n";
         // Make sure user enters the right amount of digits
         for (int i = 0; i < length; i++)
         {

@@ -17,10 +17,10 @@ private:
 
 public:
     // Default constructor
-    mastermind(int n = 5, int m = 10) { length = n; range = m;};
+    mastermind() : masterCode(5, 10) { length = 5; range = 10;};
 
     // Constructor with user params
-    mastermind(int n, int m);
+    mastermind(int n, int m) : masterCode(n, m) { length = n; range = m;};
 
     // Read from user guess
     code humanGuess();
