@@ -10,23 +10,28 @@ response::response()
 }
 
 
-bool response::operator ==(const response respL, const response respR)
+bool response::operator ==(const response &respR)
 {
-    for (int i = 0; i < respL.secretCode.size(); i++)
-    {
-        if (respL.secretCode.at(i) != respR.guessCode.at(i))
-            return false;
-        else
+        if (secretCode == respR.guessCode)
             return true;
-    }
+        else if (respR.secretCode == guessCode)
+            return true;
+        else
+            return false;
 }
 
-friend std::ostream& response::operator<<(std::ostream& os, const response resp)
+std::ostream& operator<< (std::ostream& os, const response resp)
 {
     os << "Correct digits in correct position: "
        << resp.getCorrect() << '\n';
     os << "Correct digits in incorrect position: "
        << resp.getIncorrect() << '\n';
     return os;
+}
+
+std::istream& operator>> (std::istream& is, response& resp)
+{
+    is >> resp.correct >> resp.incorrect;
+    return is;
 }
 

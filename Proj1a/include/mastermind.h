@@ -17,7 +17,7 @@ private:
 
 public:
     // Default constructor
-    mastermind(int n = 5, int m =10);
+    mastermind(int n = 5, int m = 10) { length = n; range = m;};
 
     // Constructor with user params
     mastermind(int n, int m);
