@@ -1,6 +1,11 @@
-//
-// Created by piraka9011 on 1/28/17.
-//
+/*
+ * EECE2560: Proj1b
+   Response.h
+        @Purpose: Creating class response members and methods(Functions)
+        Implementations include: Correct guess, incorrect guess return.
+        @author: Anas Abou Allaban & Turki Alrifaie
+        @version: 1.0 2/1/17
+ */
 
 #ifndef PROJ1A_RESPONSE_H
 #define PROJ1A_RESPONSE_H
@@ -25,7 +30,7 @@ public:
     // Setters and getters for check in/correct
     void setCorrect(code GC, code SC)
         { correct = SC.checkCorrect(GC);};
-    int getCorrect() const { return correct;};
+    int getCorrect() const { return correct; };
 
     void setIncorrect(code GC, code SC)
         { incorrect = SC.checkIncorrect(GC);};

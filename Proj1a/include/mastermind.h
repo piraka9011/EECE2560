@@ -1,4 +1,12 @@
-/**/
+/*
+ * EECE2560: Proj1b
+   mastermind.h
+        @Purpose: Creating class mastermind members and methods(Functions)
+        Implementations include: return secret code, assign default range and length.
+        intitiate the game, check if solved.
+        @author: Anas Abou Allaban & Turki Alrifaie
+        @version: 1.0 2/1/17
+ */
 
 #ifndef PROJ1A_MASTERMIND_H
 #define PROJ1A_MASTERMIND_H

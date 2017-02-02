@@ -1,6 +1,6 @@
 /*
  * EECE2560: Proj1b
-   mastermind.cpp
+   Response.cpp
         @Purpose: Implementing the member functions of the response class
         Implementations include: secret code initialization, return number of
         in/correct digits in in/correct location, return if the GC and the SC were
@@ -30,7 +30,8 @@ bool response::operator ==(const response &respR)
 }
 
 std::ostream& operator<< (std::ostream& os, const response resp)
-//The function
+//The function returns the number of correct digits and incorrect
+//using the response class get in/correct function
 {
     os << "Correct digits in correct position: "
        << resp.getCorrect() << '\n';
