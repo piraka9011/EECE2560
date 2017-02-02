@@ -105,8 +105,10 @@ bool code::checkWin(int correctGuess)
 // Prints the result of whether user won or not
 void code::printResult(bool result)
 {
+    // If user won, print out congrats statement
     if (result)
         std::cout << "\nCongratulations, you win!";
+    // Otherwise tell them they are losers :c
     else
         std::cout << "\nYou lost! Try Again...";
 }

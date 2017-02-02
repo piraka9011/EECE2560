@@ -1,15 +1,15 @@
-/*
- * EECE2560: Proj1b
-   mastermind.h
-        @Purpose: Creating class mastermind members and methods(Functions)
-        Implementations include: return secret code, assign default range and length.
-        intitiate the game, check if solved.
-        @author: Anas Abou Allaban & Turki Alrifaie
-        @version: 1.0 2/1/17
+/**
+    EECE2560: Proj1b
+    mastermind.h
+    @Purpose: Creating class mastermind members and methods(Functions)
+    Implementations include: return secret code, assign default range and length.
+    intitiate the game, check if solved.
+    @author: Anas Abou Allaban & Turki Alrifaie
+    @version: 1.0 2/1/17
  */
 
-#ifndef PROJ1A_MASTERMIND_H
-#define PROJ1A_MASTERMIND_H
+#ifndef MASTERMIND_H
+#define MASTERMIND_H
 
 #include "code.h"
 #include "response.h"
@@ -18,7 +18,7 @@ class mastermind
 {
 
 private:
-    int length, range;   // Length & Range
+    int length, range;   // Length & Range of code
     code masterCode;
 
 public:
@@ -45,5 +45,4 @@ public:
 
 };
 
-
-#endif //PROJ1A_MASTERMIND_H
+#endif //MASTERMIND_H
