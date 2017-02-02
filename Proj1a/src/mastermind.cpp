@@ -49,11 +49,15 @@ code mastermind::humanGuess()
 */
 response mastermind::getResponse(code guessCode, code secretCode)
 {
+    // Create reponse object
     response respGuess;
+    // Set correct and incorrect digits based on the guess and secret code
     respGuess.setCorrect(guessCode, secretCode);
     respGuess.setIncorrect(guessCode, secretCode);
+    // Pass the guess and secret code to the response for comparison
     respGuess.setGuessCode(guessCode);
     respGuess.setSecretCode(secretCode);
+    // Return the guess response
     return respGuess;
 }
 
@@ -64,7 +68,6 @@ response mastermind::getResponse(code guessCode, code secretCode)
             of the equation it is being used on.
    @return: bool <obj>: a true false if responses are equal
  */
-
 bool mastermind::isSolved(response respL, response respR)
 {
     return respL == respR;
