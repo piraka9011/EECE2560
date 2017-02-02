@@ -1,6 +1,4 @@
-//
-// Created by piraka9011 on 1/28/17.
-//
+/**/
 
 #ifndef PROJ1A_MASTERMIND_H
 #define PROJ1A_MASTERMIND_H
@@ -25,7 +23,7 @@ public:
     // Read from user guess
     code humanGuess();
 
-    // Return user reponse
+    // Return user response
     response getResponse(code guessCode, code secretCode);
 
     // Checks if game is won

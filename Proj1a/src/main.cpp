@@ -1,9 +1,9 @@
 /**
-	EECE2560: Proj1a
+	EECE2560: Proj1b
 	main.cpp
 	Purpose: Main function to implement the game and call all necessary classes
-    It declares two class objects GC and SC to call the class Code
-    function Check correct and incorrect
+    It declares a class object game which is passed to the class mastermind
+    to call the necessary function/s
 	@author: Anas Abou Allaban & Turki Alrifaie
 	@version: 1.0 1/26/17
 

@@ -1,6 +1,13 @@
-//
-// Created by piraka9011 on 1/28/17.
-//
+/*
+ * EECE2560: Proj1b
+   mastermind.cpp
+        @Purpose: Implementing the member functions of the response class
+        Implementations include: secret code initialization, return number of
+        in/correct digits in in/correct location, return if the GC and the SC were
+        equal (Win the game)
+        @author: Anas Abou Allaban & Turki Alrifaie
+        @version: 1.0 2/1/17
+ */
 
 #include "../include/response.h"
 
@@ -11,6 +18,8 @@ response::response()
 
 
 bool response::operator ==(const response &respR)
+//The function checks whether the RHS equals the RHS
+//It then return true or false.
 {
         if (secretCode == respR.guessCode)
             return true;
@@ -21,6 +30,7 @@ bool response::operator ==(const response &respR)
 }
 
 std::ostream& operator<< (std::ostream& os, const response resp)
+//The function
 {
     os << "Correct digits in correct position: "
        << resp.getCorrect() << '\n';

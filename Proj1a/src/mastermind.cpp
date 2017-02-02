@@ -1,11 +1,20 @@
-//
-// Created by piraka9011 on 1/28/17.
-//
+/*
+ * EECE2560: Proj1b
+   mastermind.cpp
+        @Purpose: Implementing the member functions of the master mind class
+        Implementations include: secret code initialization, check number of
+        in/correct digits in in/correct location, checking if the game was won,
+        and printing the result
+        @author: Anas Abou Allaban & Turki Alrifaie
+        @version: 1.0 2/1/17
+ */
 
 #include "../include/mastermind.h"
 
 code mastermind::humanGuess()
+//
 {
+    //Object Declaration
     code GC(length, range);
     int guess;
     std::vector<int> tempGuess;
@@ -23,6 +32,10 @@ code mastermind::humanGuess()
 }
 
 response mastermind::getResponse(code guessCode, code secretCode)
+//The function creates a responseguess object. The object is then used
+//to call the response class function to set the correct digits and
+//the incorrect ones. It also assigns the GC and the SC to the corresponding
+//functions of the class. It finally return the results (display).
 {
     response respGuess;
     respGuess.setCorrect(guessCode, secretCode);
@@ -33,11 +46,21 @@ response mastermind::getResponse(code guessCode, code secretCode)
 }
 
 bool mastermind::isSolved(response respL, response respR)
+//This function checks if the Lhs equals the Rhs and returns true or false
+//This implementation is used to determine if the secret code has been cracked
 {
     return respL == respR;
 }
 
 void mastermind::playGame()
+//This function initiates the game and calls the function randominit that
+//creates a random secret code. For debugging purposes the function also prints
+//out the secret code. The function then prompts the user for his guess and saves
+//it in a vector. The vector is then passed to the object GC that sets the guess
+//to the user input. The function then carry out a response check by passing the
+//GC and mastermind objects to class response that checks for correct and incorrect
+//digits. If the guess is right the loop breaks else the game continues until all
+// attempts have been exhausted.
 {
     int count = 0, guess;
     bool result = false;
