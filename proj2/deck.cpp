@@ -7,7 +7,7 @@
 
 Deck::Deck()
 {
-    node<Card> *headNode = new node<Card>;
+
     for (int i = 0; i < NUM_SUIT; i++)
     {
         for (int j = 0; j < NUM_VALUE; j++)
@@ -26,7 +26,8 @@ void Deck::shuffle()
     //std::shuffle(deck.begin(), deck.end(), g);
 }
 
-std::ostream& operator << (std::ostream& os, const node<Card> &n)
+std::ostream& operator << (std::ostream& os, const Deck &d)
 {
-        os << n.nodeValue;
+
+        os << headNode->next->nodeValue;
 }

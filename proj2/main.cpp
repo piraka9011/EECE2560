@@ -5,7 +5,7 @@
 
 int main() {
 
-    Deck newDeck();
+    Deck newDeck;
 
     std::cout << newDeck();
 

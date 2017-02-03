@@ -17,6 +17,7 @@ private:
     const int DECK_SIZE = 52;
     const int NUM_SUIT = 4;
     const int NUM_VALUE = 13;
+    node<Card> *headNode = new node<Card>;
 
 public:
     Deck();
