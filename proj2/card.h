@@ -16,6 +16,7 @@ private:
 
 public:
     Card();
+    Card(int value, int suit);
     void setValue(int newVal) { value = newVal; }
     void setSuit(int newSuit) { suit = newSuit; }
     int getValue() { return value; }

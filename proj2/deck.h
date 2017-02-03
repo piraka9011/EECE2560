@@ -17,12 +17,12 @@ private:
     const int DECK_SIZE = 52;
     const int NUM_SUIT = 4;
     const int NUM_VALUE = 13;
-    std::list<card> deck(DECK_SIZE);
 
 public:
     Deck();
     void shuffle();
-    friend std::ostream& operator << (std::ostream& os, const Deck deck);
+
+    friend std::ostream& operator << (std::ostream& os, const node<Card> &n);
 };
 
 
