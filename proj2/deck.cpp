@@ -2,22 +2,23 @@
 // Created by river on 2/2/17.
 //
 
-#include "d_node.h"
 #include "deck.h"
 
 Deck::Deck()
 {
-
+    node<Card>* itr = headNode;
     for (int i = 0; i < NUM_SUIT; i++)
     {
         for (int j = 0; j < NUM_VALUE; j++)
         {
             Card newCard(j, i);
-            node<Card> *newNode = new node<Card> (newCard);
-            headNode -> next = newNode;
+            node<Card> *newNode = new node<Card> (newCard, itr);
+            std::cout << newNode->nodeValue;
+            itr = newNode;
         }
     }
 }
+
 
 void Deck::shuffle()
 {
@@ -26,8 +27,12 @@ void Deck::shuffle()
     //std::shuffle(deck.begin(), deck.end(), g);
 }
 
-std::ostream& operator << (std::ostream& os, const Deck &d)
+std::ostream& operator << (std::ostream& os, Deck &d)
 {
-
-        os << headNode->next->nodeValue;
+        node<Card> *it;
+        for (int i = 0; i < d.getDeckSize(); i++)
+        {
+            it = d.headNode->next;
+            os << it;
+        }
 }
