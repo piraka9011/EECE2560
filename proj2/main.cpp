@@ -4,8 +4,8 @@
 
 int main() {
 
-    Deck newDeck();
-    std::cout << newDeck;
+    Deck *d = new Deck;
+    std::cout << d;
 
     return 0;
 }

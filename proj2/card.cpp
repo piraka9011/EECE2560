@@ -16,9 +16,9 @@ Card::Card(int value, int suit)
     this -> suit = suit;
 }
 
-std::ostream& operator << (std::ostream os, const Card& c)
+std::ostream& operator << (std::ostream& os, const Card& c)
 {
-    switch (c.value) {
+    switch (c.getValue()) {
         case 0:
             os << "Value: Ace\n";
         case 11:
@@ -28,20 +28,26 @@ std::ostream& operator << (std::ostream os, const Card& c)
         case 13:
             os << "Value: King\n";
         default:
-            os << "Value: " << c.value << '\n';
+            os << "Value: " << c.getValue()<< '\n';
     }
-    switch (c.suit)
+    switch (c.getSuit())
     {
         case 0:
-            os << "Suite: Club\n";
+            os << "Suit: Club\n";
         case 1:
-            os << "Suite: Diamond\n";
+            os << "Suit: Diamond\n";
         case 2:
-            os << "Suite: Heart\n";
+            os << "Suit: Heart\n";
         case 3:
-            os << "Suite: Spade\n";
-        default:
-            os << "Error, no suite found!\n";
+            os << "Suit: Spade\n";
     }
     return os;
 }
+
+/*
+ *
+ *
+ *     default:
+            os << "Error, no suite found!\n";
+ *
+ */

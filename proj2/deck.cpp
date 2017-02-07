@@ -30,9 +30,11 @@ void Deck::shuffle()
 std::ostream& operator << (std::ostream& os, Deck &d)
 {
         node<Card> *it;
+        Card curr;
         for (int i = 0; i < d.getDeckSize(); i++)
         {
             it = d.headNode->next;
-            os << it;
+            curr = it->nodeValue;
+            os << curr;
         }
 }
