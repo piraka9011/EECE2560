@@ -11,18 +11,26 @@
 #include <iostream>
 #include <list>
 #include <random>
+#include <ctime>
 
 class Deck {
 
 private:
     const int DECK_SIZE = 52;
     const int NUM_SUIT = 4;
-    const int NUM_VALUE = 13;
-    node<Card> *headNode = new node<Card>;
+    const int NUM_VALUE = 14;
+    node<Card>* headNode = new node<Card>;
 
 public:
     Deck();
     void shuffle();
+    void insertHead(Card c);
+    void insertTail(Card c);
+    void insertHere(node<Card>* n, int i);
+    void swap(node<Card>* a, node<Card>* b);
+    node<Card>* getCard(int rank, int suit);
+    node<Card>* getCard(int i);
+    node<Card>* getTail();
     int getDeckSize() const { return DECK_SIZE; };
     friend std::ostream& operator << (std::ostream& os, Deck &d);
 };
