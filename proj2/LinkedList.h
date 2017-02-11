@@ -1,6 +1,11 @@
-//
-// Created by piraka9011 on 2/8/17.
-//
+/**
+	EECE2560: Proj2a
+	LinkedList.h
+	Purpose: This file contains the definition of a linked list. All
+    features of a linked list will be added here as need for Proj 2.
+	@author: Anas Abou Allaban & Turki Alrifaie
+	@version: 1.0 2/11/17
+*/
 
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
@@ -17,7 +22,6 @@ public:
     bool isEmpty();
     void insertTail(Card c);
     void insertHead(Card c);
-    void replaceHere(int i, Card c);
     node<Card>* getHeadNode() { return headNode; }
     node<Card>* getCard(int i);
     ~LinkedList();
