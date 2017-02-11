@@ -9,9 +9,7 @@
 template <typename T>
 class node
 {
-private:
-    node *head;
-    int listLength = 52;
+
 public:
     /// Vars
     T nodeValue;      // data held by the node

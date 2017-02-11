@@ -5,7 +5,6 @@
 #ifndef CARD_H
 #define CARD_H
 
-//#include <ostream>
 #include <iostream>
 
 class Card {

@@ -7,8 +7,8 @@
 
 #include "card.h"
 #include "d_node.h"
+#include "LinkedList.h"
 #include <algorithm>
-#include <iostream>
 #include <list>
 #include <random>
 #include <ctime>
@@ -19,20 +19,16 @@ private:
     const int DECK_SIZE = 52;
     const int NUM_SUIT = 4;
     const int NUM_VALUE = 14;
-    node<Card>* headNode = new node<Card>;
+    LinkedList deck;
 
 public:
     Deck();
     void shuffle();
-    void insertHead(Card c);
-    void insertTail(Card c);
-    void insertHere(node<Card>* n, int i);
-    void swap(node<Card>* a, node<Card>* b);
-    node<Card>* getCard(int rank, int suit);
-    node<Card>* getCard(int i);
-    node<Card>* getTail();
+    void swap(node<Card> *a, node<Card> *b);
     int getDeckSize() const { return DECK_SIZE; };
+    node<Card>* getHeadNode() {return deck.getHeadNode(); }
     friend std::ostream& operator << (std::ostream& os, Deck &d);
+
 };
 
 
