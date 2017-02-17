@@ -98,4 +98,40 @@ std::ostream& operator << (std::ostream& os, Deck &d)
     }
     return os;
 }
+/**
+    The deal function takes a card from the top of the deck and then removes
+    that card from the original deck.
+    @return: node<Card>* dealtCard: The head node or the card that is at the
+             top of the deck
+ */
+node<Card>* Deck::deal()
+{
+    // Create a node to get the card at the top of the deck
+    node<Card>* dealtCard = deck.getHeadNode();
+    // Remove the card from the deck (function takes care of setting a new head
+    // for the deck)
+    deck.removeHead();
+    return dealtCard;
+}
+
+
+/**
+    Destructor of the Deck class.
+    Loops through entire deck from headNode to end of list (nullptr) and
+    deletes each node.
+ */
+Deck::~Deck()
+{
+    // Create an iterator node ptr
+    node<Card>* itr = deck.getHeadNode();
+    // Make a temp node to delete the node
+    node<Card>* curr = itr;
+    // Loop while we have not reached end of list (while not null)
+    while (itr)
+    {
+        itr = itr->next;
+        delete curr;
+        curr = itr;
+    }
+}
 

@@ -20,8 +20,9 @@ private:
 public:
     LinkedList();
     bool isEmpty();
-    void insertTail(Card c);
+    void replace(Card c);
     void insertHead(Card c);
+    void removeHead();
     node<Card>* getHeadNode() { return headNode; }
     node<Card>* getCard(int i);
     ~LinkedList();

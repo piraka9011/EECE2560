@@ -39,7 +39,9 @@ public:
     node<Card>* getHeadNode() {return deck.getHeadNode(); }
     // Overloaded print out operator
     friend std::ostream& operator << (std::ostream& os, Deck &d);
-
+    node<Card>* deal();
+    // Destructor
+    ~Deck();
 };
 
 

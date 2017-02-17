@@ -50,7 +50,7 @@ void LinkedList::insertHead(Card c)
     @param: Card c: a card object that is used to create a Card node and put it
             in the list
  */
-void LinkedList::insertTail(Card c)
+void LinkedList::replace(Card c)
 {
     if(isEmpty())
     {
@@ -70,6 +70,21 @@ void LinkedList::insertTail(Card c)
     curr->next = n;
     // Set the next element as null (Node is at end of list)
     n->next = NULL;
+}
+
+/**
+    This function deletes the card at the head and sets the node after the head
+    as the new head node
+ */
+
+void LinkedList::removeHead()
+{
+    // Create a temp node to store location of the head
+    node<Card>* temp = headNode;
+    // Set the head node as the next element
+    headNode = headNode->next;
+    // Delete old head
+    delete temp;
 }
 
 /**

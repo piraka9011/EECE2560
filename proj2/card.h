@@ -21,6 +21,8 @@ private:
 public:
     // Default Constructor
     Card();
+    //Copy Constructor
+    Card(const Card& c);
     // Constructor with params to set the value and suit
     Card(int value, int suit);
     // Set the rank and suit of a card;
@@ -29,6 +31,7 @@ public:
     // Return rank and suit of a card
     int getValue() const { return value; }
     int getSuit() const { return suit; }
+    Card& operator= (const Card& rhs);
     // Overloaded print out operator to prin contents of a card
     friend std::ostream& operator << (std::ostream& os, const Card& c);
 

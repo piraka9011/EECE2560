@@ -11,8 +11,6 @@
 
 /**
     Default constructor for a Card object. Sets the rank and suit to Ace and Club
-    @param:
-    @return:
  */
 Card::Card()
 {
@@ -32,6 +30,26 @@ Card::Card(int value, int suit)
 {
     this -> value = value;
     this -> suit = suit;
+}
+
+/**
+    Copy constructor for the card class
+ */
+Card::Card(const Card &c) : value(c.value), suit(c.suit) {}
+
+/**
+    This overloaded assignment operator takes a card from the RHS of the
+    assignment and sets its values to that of the LHS;
+    @param: Card& rhs: A card object passed by reference that corresponds to
+            the right side of the operator.
+    @return: this: Overloaded operator returns the card itself as its values
+             have been assigned to that of the RHS object
+ */
+Card& Card::operator=(const Card &rhs)
+{
+    value = rhs.getValue();
+    suit = rhs.getSuit();
+    return *this;
 }
 
 /**
