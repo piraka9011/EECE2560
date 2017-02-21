@@ -9,40 +9,69 @@
 
 #include "deck.h"
 
+/**
+    The playFlip function is the games main function that implements the game
+    and is the only function called in main. It is a global function and
+    utilizes the Deck, Card, and LinkedList classes.
+ */
 void playFlip()
 {
-
-    int draw=1, value;
+    // Init vars and params
+    int draw = 1, choice = 1, cardChoice, lastCardChoice = 0;
     double score=0;
-    Card playcards;
-
+    node<Card>* card;
     // Create a new deck
     Deck *d = new Deck;
-    // Print out the entire deck
-    std::cout << *d;
+
     // Inform user of shuffle
     for (int i = 0; i < 3; i++) {
         std::cout << "\n*******************\n"
                 "Shuffling\n*******************\n";
         d->shuffle();
     }
-    // Print out the deck after shuffle
+
+    /// Debugging only
+    // std::cout << "Initially shuffled deck: \n" << *d << std::endl;
+
+    // Get top 24 cards
+    LinkedList gameDeck;
+    for (int i = 0; i < 23; i++)
+    {
+        gameDeck.replace(d->deal()->nodeValue);
+    }
+
+    //Print top 24 cards
+    std::cout << "Top 24 cards:\n";
+    std::cout << gameDeck << std::endl;
+    // Print cards in deck
+    std::cout << "Remaining cards:\n";
     std::cout << *d;
 
-    std::cout <<"Implement the while loop" << std::endl;
-    int i = 0;
-
-
-    while ((draw != 0) && (i < 23))
+    // Loop until user no longer wishes to play (draw == 0)
+    while (draw)
     {
+        // Prompt user to select card
+        std::cout << "Select a card to turn over (1-24)\n";
+        std::cin >> cardChoice;
 
-        playcards = d->deal()->nodeValue;
-        value = playcards.getValue();
+        // Conduct check to see if user selected same card 3 times
+        if (cardChoice == lastCardChoice)
+        {
+            choice++;
+            if (choice == 3)
+            {
+                std::cout << "You have chosen that card three times in a row!\n"
+                          << "Select another card maybe?\n";
+            }
+        }
 
-        std::cout<<"The value of the card is " <<playcards
-                                               <<std::endl;
+        // Get card user selected
+        card = gameDeck.getCard(cardChoice-1);
+        std::cout << "Your card is:\n" << card->nodeValue
+                  << std::endl;
 
-        switch (value)
+        // Adjust user score accordingly
+        switch (card->nodeValue.getValue())
         {
             case 1:
                 score += 10;
@@ -57,13 +86,10 @@ void playFlip()
                 score += 5;
                 break;
             case 10:
-                score;
                 break;
             case 9:
-                score;
                 break;
             case 8:
-                score;
                 break;
             case 7:
                 score = score / 2;
@@ -83,50 +109,33 @@ void playFlip()
             case 2:
                 score = 0;
                 break;
+            default:
+                std::cout << "ERROR!\n";
+                break;
         }
-        if (playcards.getSuit() == 2) {
+        if (card->nodeValue.getSuit() == 2)
             score += 1;
-        }
 
-
-
-        std::cout << d->getDeckSize();
-        std::cout << std::endl;
-
+        // Print score and continuation prompt
         std::cout << "Your total score is: " << score << std::endl;
-        std::cout << "Enter 0 to exit or any 1 to deal again. " << std::endl;
-
+        std::cout << "Enter 0 to exit or 1 to deal again. " << std::endl;
         std::cin >> draw;
-        std::cout << std::endl;
 
-        if(draw ==0) {
-            std::cout<<"You have ended the game with a total score of: "
-                     <<score<<std::endl;
-        }
-        i++;
-
+        // Set users previous card choice
+        lastCardChoice = cardChoice;
     }
-    std::cout<< "The play cards list: "<<std::endl;
-    d->printDeck();
-    std::cout<<std::endl;
-    d->size();
 
-
-
+    // End Game
+    std::cout<<"You have ended the game with a total score of: "
+             << score << std::endl;
 
     // Destructor
     delete d;
-    std::cout << "Card assignment";
-    Card c1(5, 2);
-    Card c2;
-    c1 = c2;
-    std::cout << c1;
-    // END
-
 }
 
 int main() {
-
+    // Play the game
     playFlip();
+    // End of program
     return 0;
 }

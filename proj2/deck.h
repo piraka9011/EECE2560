@@ -33,6 +33,7 @@ public:
     void shuffle();
     // Swap
     void swap(node<Card> *a, node<Card> *b);
+    LinkedList getDeck() { return deck; };
     // Get the size of the deck
     int getDeckSize() const { return DECK_SIZE; };
     // Get the head node of the list (top of deck)
@@ -40,6 +41,7 @@ public:
     // Overloaded print out operator
     friend std::ostream& operator << (std::ostream& os, Deck &d);
     node<Card>* deal();
+    void insertCard(node<Card>* dealtCard);
     // Destructor
     ~Deck();
 };

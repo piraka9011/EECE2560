@@ -25,6 +25,7 @@ public:
     void removeHead();
     node<Card>* getHeadNode() { return headNode; }
     node<Card>* getCard(int i);
+    friend std::ostream& operator << (std::ostream& os, LinkedList &l);
     ~LinkedList();
 };
 

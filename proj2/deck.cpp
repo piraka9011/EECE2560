@@ -89,7 +89,7 @@ std::ostream& operator << (std::ostream& os, Deck &d)
 {
     // Create iterator to loop through deck
     node<Card> *it = d.getHeadNode();
-    for (int i = 0; i < d.getDeckSize(); i++)
+    while (it)
     {
         // Print node value
         os << it->nodeValue;
@@ -114,6 +114,10 @@ node<Card>* Deck::deal()
     return dealtCard;
 }
 
+void Deck::insertCard(node<Card>* dealtCard)
+{
+
+}
 
 /**
     Destructor of the Deck class.

@@ -94,12 +94,33 @@ void LinkedList::removeHead()
  */
 node<Card>* LinkedList::getCard(int i)
 {
-    node<Card>* curr= headNode;
+    node<Card>* curr = headNode;
     for (int j = 0; j < i; j++)
     {
         curr = curr->next;
     }
     return curr;
+}
+
+/**
+    This overloaded operator prints out the entire linked list from top to bottom
+    @param: std::ostream& os: Output stream object used as the LHS of the
+            operator's std::cout
+            LinkedList& d: A LinkedList object used to get the head of the list and then
+            have an iterator iterate through the list.
+    @return: std::ostream& os: An output stream object to print to the console
+ */
+std::ostream& operator << (std::ostream &os, LinkedList &l)
+{
+    // Iterator
+    node<Card>* curr = l.getHeadNode();
+    // Loop until we have reached the end of the list (null/false)
+    while(curr)
+    {
+        os << curr->nodeValue;
+        curr = curr->next;
+    }
+    return os;
 }
 
 LinkedList::~LinkedList() {}
