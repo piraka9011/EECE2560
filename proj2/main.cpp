@@ -63,6 +63,7 @@ void playFlip()
                 std::cout << "You have chosen that card three times in a row!\n"
                           << "Select another card maybe?\n";
             }
+
         }
 
         // Get card user selected

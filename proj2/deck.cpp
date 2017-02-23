@@ -98,6 +98,7 @@ std::ostream& operator << (std::ostream& os, Deck &d)
     }
     return os;
 }
+
 /**
     The deal function takes a card from the top of the deck and then removes
     that card from the original deck.
@@ -112,11 +113,6 @@ node<Card>* Deck::deal()
     // for the deck)
     deck.removeHead();
     return dealtCard;
-}
-
-void Deck::insertCard(node<Card>* dealtCard)
-{
-
 }
 
 /**

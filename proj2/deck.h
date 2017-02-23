@@ -41,7 +41,6 @@ public:
     // Overloaded print out operator
     friend std::ostream& operator << (std::ostream& os, Deck &d);
     node<Card>* deal();
-    void insertCard(node<Card>* dealtCard);
     // Destructor
     ~Deck();
 };

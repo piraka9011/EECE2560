@@ -19,11 +19,16 @@ private:
 
 public:
     LinkedList();
+    // Checks if list is empty
     bool isEmpty();
+    // Puts card at end of the list
     void replace(Card c);
+    // Puts card at the head of the list
     void insertHead(Card c);
+    // Removes the head node and sets next card as head
     void removeHead();
     node<Card>* getHeadNode() { return headNode; }
+    // Rrturns the node at index i
     node<Card>* getCard(int i);
     friend std::ostream& operator << (std::ostream& os, LinkedList &l);
     ~LinkedList();
