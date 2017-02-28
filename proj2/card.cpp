@@ -1,21 +1,66 @@
-//
-// Created by river on 2/2/17.
-//
+/**
+	EECE2560: Proj2a
+	card.cpp
+	Purpose: This file contains the implementation of functions defined in
+    card.h, specifically the overloaded operator and constructor
+	@author: Anas Abou Allaban & Turki Alrifaie
+	@version: 1.0 2/11/17
+*/
 
 #include "card.h"
 
+/**
+    Default constructor for a Card object. Sets the rank and suit to Ace and Club
+ */
 Card::Card()
 {
-    value = 0;
+
+    value = 1;
     suit = 0;
 }
 
+/**
+    Another Card constructor that sets the rank and suit according to the
+    users passed parameters
+    @param: int value: rank of the card
+            int suit: suit of the card
+    @return:
+ */
 Card::Card(int value, int suit)
 {
     this -> value = value;
     this -> suit = suit;
 }
 
+/**
+    Copy constructor for the card class
+ */
+Card::Card(const Card &c) : value(c.value), suit(c.suit) {}
+
+/**
+    This overloaded assignment operator takes a card from the RHS of the
+    assignment and sets its values to that of the LHS;
+    @param: Card& rhs: A card object passed by reference that corresponds to
+            the right side of the operator.
+    @return: this: Overloaded operator returns the card itself as its values
+             have been assigned to that of the RHS object
+ */
+Card& Card::operator=(const Card &rhs)
+{
+    value = rhs.getValue();
+    suit = rhs.getSuit();
+    return *this;
+}
+
+/**
+    The overloaded operator prints the rank and suit of the card. A switch
+    case block is used to print the values
+    @param: std::ostream& os: Output stream object used as the LHS of the
+            operator's std::cout.
+            Card& c: A card object for the RHS of the operator, used to get
+            the value and rank
+    @return: std::ostream& os: An output stream object to print to the console
+ */
 std::ostream& operator << (std::ostream& os, const Card& c)
 {
     switch (c.getValue()) {
@@ -55,11 +100,3 @@ std::ostream& operator << (std::ostream& os, const Card& c)
     }
     return os;
 }
-
-/*
- *
- *
- *     default:
-            os << "Error, no suite found!\n";
- *
- */

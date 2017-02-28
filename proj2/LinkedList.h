@@ -1,6 +1,11 @@
-//
-// Created by piraka9011 on 2/8/17.
-//
+/**
+	EECE2560: Proj2a
+	LinkedList.h
+	Purpose: This file contains the definition of a linked list. All
+    features of a linked list will be added here as need for Proj 2.
+	@author: Anas Abou Allaban & Turki Alrifaie
+	@version: 1.0 2/11/17
+*/
 
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
@@ -14,12 +19,18 @@ private:
 
 public:
     LinkedList();
+    // Checks if list is empty
     bool isEmpty();
-    void insertTail(Card c);
+    // Puts card at end of the list
+    void replace(Card c);
+    // Puts card at the head of the list
     void insertHead(Card c);
-    void replaceHere(int i, Card c);
+    // Removes the head node and sets next card as head
+    void removeHead();
     node<Card>* getHeadNode() { return headNode; }
+    // Rrturns the node at index i
     node<Card>* getCard(int i);
+    friend std::ostream& operator << (std::ostream& os, LinkedList &l);
     ~LinkedList();
 };
 
