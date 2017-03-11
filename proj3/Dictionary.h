@@ -24,6 +24,7 @@ public:
     void selectionSort();
     int searchWord(std::string word);
     std::vector<std::string> getDict() { return stringDict; };
+    bool isSaved() { return savedDict; };
     void saveDict();
 };
 

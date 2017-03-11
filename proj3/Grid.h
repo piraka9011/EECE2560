@@ -16,7 +16,7 @@ private:
 
 public:
     Grid(std::string matrixFile);
-    matrix<char> getMat() { return charMat; };
+    matrix<char> getMat() { return charMat; }
 
 };
 

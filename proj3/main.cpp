@@ -29,6 +29,29 @@ void findMatches(Dictionary dict, Grid mat)
     }
 }
 
+void search()
+{
+    std::string fileName;
+    std::cout << "Enter the grid file name: ";
+    std::cin >> fileName;
+
+    // Create Grid object
+    Grid fileGrid(fileName);
+
+    // Establish Dictionary
+    Dictionary dict;
+    // Read the words
+    dict.readDictionary();
+    // Check to see if it isn't sorted
+    if (!dict.isSaved())
+    {
+        // If it isn't, sort
+        dict.selectionSort();
+    }
+
+    findMatches(dict, fileGrid);
+}
+
 int main() {
 
     return 0;

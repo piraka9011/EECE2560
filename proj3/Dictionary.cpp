@@ -23,30 +23,22 @@ void Dictionary::readDictionary()
     std::string line;
     // Create an istream obj for our dictionary
     std::ifstream inFile(fileDir);
-    if (savedDict) {
-        while (!inFile.eof()){
+
+    // Check if file can be opened
+    // Read through file line by line
+    if (inFile.is_open())
+    {
+        while (!inFile.eof())
+        {
             std::getline(inFile, line);
+            // Put each word in a vector
             stringDict.push_back(line);
         }
+        // Close the istream
         inFile.close();
     }
-    else {
-        // Check if file can be opened
-        // Read through file line by line
-        if (inFile.is_open())
-        {
-            while (!inFile.eof())
-            {
-                std::getline(inFile, line);
-                // Put each word in a vector
-                stringDict.push_back(line);
-            }
-            // Close the istream
-            inFile.close();
-        }
-        else
-            std::cout << "ERROR: UNABLE TO OPEN FILE\n";
-    }
+    else
+        std::cout << "ERROR: UNABLE TO OPEN FILE\n";
 }
 
 void Dictionary::selectionSort()
@@ -71,9 +63,11 @@ void Dictionary::selectionSort()
         if (min != i)
             std::swap(stringDict.at(i), stringDict.at(min));
     }
+    // Save dictionary after sorting
+    saveDict();
 }
 
-Dictionary::saveDict()
+void Dictionary::saveDict()
 {
     std::ofstream outFile("/home/river/algo_ws/proj3/sortedDict.txt");
     for (int i = 0; i < stringDict.size(); i++)
