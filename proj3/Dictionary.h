@@ -14,13 +14,17 @@
 class Dictionary {
 private:
     std::vector<std::string> stringDict;
+    bool savedDict = false;
+    std::string fileDir = " ";
 
 public:
+    Dictionary();
     void readDictionary();
     friend std::ostream& operator<< (std::ostream& os, Dictionary d);
     void selectionSort();
     int searchWord(std::string word);
     std::vector<std::string> getDict() { return stringDict; };
+    void saveDict();
 };
 
 

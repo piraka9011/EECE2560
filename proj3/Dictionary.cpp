@@ -4,27 +4,49 @@
 
 #include "Dictionary.h"
 
+Dictionary::Dictionary()
+{
+    std::ifstream savedFile("/home/river/algo_ws/proj3/sortedDict.txt");
+    if (savedFile.is_open()) {
+        savedDict = true;
+        fileDir = "/home/river/algo_ws/proj3/sortedDict.txt";
+        std::cout << "Using previously sorted dictionary\n";
+    }
+    else
+        fileDir = "/home/river/algo_ws/proj3/dictionary.txt";
+}
+
+
 void Dictionary::readDictionary()
 {
     // Temp string var
     std::string line;
     // Create an istream obj for our dictionary
-    std::ifstream inFile;
-    inFile.open("/home/river/algo_ws/proj3/dictionary.txt");
-    // Check if file can be opened
-    // Read through file line by line
-    if (inFile.is_open()) {
-        while (!inFile.eof()) {
+    std::ifstream inFile(fileDir);
+    if (savedDict) {
+        while (!inFile.eof()){
             std::getline(inFile, line);
-            // Put each word in a vector
             stringDict.push_back(line);
         }
-        // Close the istream
         inFile.close();
     }
-    else
-        std::cout << "ERROR: UNABLE TO OPEN FILE\n";
-
+    else {
+        // Check if file can be opened
+        // Read through file line by line
+        if (inFile.is_open())
+        {
+            while (!inFile.eof())
+            {
+                std::getline(inFile, line);
+                // Put each word in a vector
+                stringDict.push_back(line);
+            }
+            // Close the istream
+            inFile.close();
+        }
+        else
+            std::cout << "ERROR: UNABLE TO OPEN FILE\n";
+    }
 }
 
 void Dictionary::selectionSort()
@@ -49,6 +71,16 @@ void Dictionary::selectionSort()
         if (min != i)
             std::swap(stringDict.at(i), stringDict.at(min));
     }
+}
+
+Dictionary::saveDict()
+{
+    std::ofstream outFile("/home/river/algo_ws/proj3/sortedDict.txt");
+    for (int i = 0; i < stringDict.size(); i++)
+    {
+        outFile << stringDict.at(i) << '\n';
+    }
+    outFile.close();
 }
 
 int Dictionary::searchWord(std::string word)
