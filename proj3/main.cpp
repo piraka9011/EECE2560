@@ -47,6 +47,13 @@ void findMatches(Dictionary dict, Grid mat)
 
         }
 
+    int size = possibleWords.size();
+    for (int i = 0; i < size; i++){
+        int answer = dict.searchWord(possibleWords.back());
+        possibleWords.pop_back();
+        std::cout << "Found a match! the word is >> " ;
+    }
+
     }
 
 void search()
@@ -73,6 +80,6 @@ void search()
 }
 
 int main() {
-
+    search();
     return 0;
 }

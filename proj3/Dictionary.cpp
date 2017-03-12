@@ -90,6 +90,7 @@ int Dictionary::searchWord(std::string word)
         if (stringDict.at(middle) == word)
         {
             found = true;
+            std::cout<< word;
             return middle;
         }
         else if (stringDict.at(middle) > word)
