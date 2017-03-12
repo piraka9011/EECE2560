@@ -7,21 +7,23 @@
 Grid::Grid(std::string matrixFile)
 {
     // Add directory to file
-    matrixFile = "/home/piraka9011/Desktop/algo_ws/proj3/" + matrixFile;
+    // Ubuntu path /home/piraka9011/Desktop/algo_ws/proj3/
+    matrixFile = "C:/Users/pinea/Documents/GitHub/algo_ws/proj3" + matrixFile;
     // Open file
-    std::ifstream inFile (matrixFile.c_str());
-    // Read in # of rows/cols from file header
-    int row, col;
-    inFile >> row >> col;
-    // Resize matrix accordingly
-    charMat.resize(row, col);
-
-    /// DEBUGGING
-    /// std::cout << "row: " << row << " col: " << col;
+    std::ifstream inFile (matrixFile);
 
     // Check if file is open
     if (inFile.is_open())
     {
+        // Read in # of rows/cols from file header
+        int row, col;
+        inFile >> row >> col;
+
+        // Resize matrix accordingly
+        charMat.resize(row, col);
+
+        /// DEBUGGING
+        std::cout << "row: " << row << " col: " << col;
         // Loop through rows and cols, store data in char matrix
         for (int i = 0; i < row; i++)
         {
