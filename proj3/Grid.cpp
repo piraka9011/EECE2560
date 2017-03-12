@@ -23,7 +23,7 @@ Grid::Grid(std::string matrixFile)
         charMat.resize(row, col);
 
         /// DEBUGGING
-        std::cout << "row: " << row << " col: " << col;
+        /// std::cout << "row: " << row << " col: " << col;
         // Loop through rows and cols, store data in char matrix
         for (int i = 0; i < row; i++)
         {

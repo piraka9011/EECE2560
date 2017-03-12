@@ -18,6 +18,7 @@ void findMatches(Dictionary dict, Grid mat)
     {
         for (int posY = 0; posY < grid.cols(); posY++)
         {
+            // TODO: Explain logic
             // Inits the first letter to search around
             tempWord = grid[posX].at(posY);
 
@@ -40,7 +41,7 @@ void findMatches(Dictionary dict, Grid mat)
                     if (rowD == grid.rows())
                         rowD = 0;
                     if (rowD == -1)
-                        rowD = grid.rows();
+                        rowD = grid.rows() - 1;
 
                     // Turki: I don't know how to explain this? XD
                     tempWord = tempWord + grid[rowD].at(colD);
@@ -51,6 +52,7 @@ void findMatches(Dictionary dict, Grid mat)
         }
     }
 
+    std::cout << "Finished getting all possible words...\n";
     // Loop through all possible words and see if it matches a word in the dict
     std::string notFound = "Word not found";
     std::string answer;
@@ -91,6 +93,7 @@ void search()
         std::cout << "Sorting...\n";
         dict.selectionSort();
     }
+    std::cout << "Sorted!\n";
 
     // Find words and print them
     std::cout << "Matching...\n";
