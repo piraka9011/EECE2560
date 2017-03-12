@@ -6,15 +6,15 @@
 
 Dictionary::Dictionary()
 {
-    // Ubuntu Path /home/river/algo_ws/proj3/
-    std::ifstream savedFile("C:/Users/pinea/Documents/GitHub/algo_ws/proj3/sortedDict.txt");
+    // Ubuntu Path /home/piraka9011/Desktop/algo_ws/proj3/
+    std::ifstream savedFile("/home/piraka9011/Desktop/algo_ws/proj3/sortedDict.txt");
     if (savedFile.is_open()) {
         savedDict = true;
-        fileDir = "C:/Users/pinea/Documents/GitHub/algo_ws/proj3/sortedDict.txt";
+        fileDir = "/home/piraka9011/Desktop/algo_ws/proj3/sortedDict.txt";
         std::cout << "Using previously sorted dictionary\n";
     }
     else
-        fileDir = "C:/Users/pinea/Documents/GitHub/algo_ws/proj3/dictionary.txt";
+        fileDir = "/home/piraka9011/Desktop/algo_ws/proj3/dictionary.txt";
 }
 
 void Dictionary::readDictionary()
@@ -69,7 +69,7 @@ void Dictionary::selectionSort()
 
 void Dictionary::saveDict()
 {
-    std::ofstream outFile("C:/Users/pinea/Documents/GitHub/algo_ws/proj3/sortedDict.txt");
+    std::ofstream outFile("/home/piraka9011/Desktop/algo_ws/proj3/sortedDict.txt");
     for (int i = 0; i < stringDict.size(); i++)
     {
         outFile << stringDict.at(i) << '\n';

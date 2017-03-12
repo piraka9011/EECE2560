@@ -75,20 +75,25 @@ void search()
     std::cin >> fileName;
 
     // Create Grid object
-    Grid fileGrid(fileName);
-
+    Grid fileGrid(fileName.c_str());
+    std::cout << "Created grid...\n";
     // Establish Dictionary
     Dictionary dict;
+    std::cout << "Created dictionary...\n";
     // Read the words
+    std::cout << "Reading dictionary...\n";
     dict.readDictionary();
+    std::cout << "Finished reading...\n";
     // Check to see if it isn't sorted
     if (!dict.isSaved())
     {
         // If it isn't, sort
+        std::cout << "Sorting...\n";
         dict.selectionSort();
     }
 
     // Find words and print them
+    std::cout << "Matching...\n";
     findMatches(dict, fileGrid);
 }
 
