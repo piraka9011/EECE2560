@@ -1,6 +1,17 @@
 #include "Dictionary.h"
 #include "Grid.h"
 
+void checkBounds(int& x, int& y, matrix<char> grid) {
+    if (x == -1)
+        x = grid.cols() - 1;
+    else if (x == grid.cols())
+        x = 0;
+    if (y == -1)
+        y = grid.rows() - 1;
+    else if (y == grid.rows())
+        y = 0;
+}
+
 void findMatches(Dictionary dict, Grid mat)
 {
     // Vector to store all possible words
@@ -10,29 +21,70 @@ void findMatches(Dictionary dict, Grid mat)
     // Get the grid matrix
     matrix<char> grid = mat.getMat();
     // Positions to move around
-    int x[] = { -1, -1, -1, 0, 0, 1, 1, 1 };
-    int y[] = { -1, 0, 1, -1, 1, -1, 0, 1 };
-    int rowD, colD;
+
     // Grid Starting points loop
-    for (int posX = 0; posX < grid.rows(); posX++)
+    for (int posX = 0; posX < grid.cols(); posX++)
     {
-        for (int posY = 0; posY < grid.cols(); posY++)
+        for (int posY = 0; posY < grid.rows(); posY++)
         {
-            tempWord = grid[posX].at(posY);
-            // Loop to get the up/down/left/right letters
+            // Loop for directions
             for (int dir = 0; dir < 8; dir++)
             {
-                int rd = posX + x[dir], cd = posY + y[dir];
-                for (int k = 0; k < grid.rows(); k++)
+                int x = posX, y = posY;
+                tempWord = "";
+                for (int len = 0; len < grid.rows(); len++)
                 {
-                    if (rd >= posX || rd < 0 || cd >= posY || cd < 0)
+                    // Consider each direction
+                    switch (dir)
+                    {
+                        case 0:
+                            x--;    y--;
+                            checkBounds(x, y, grid);
+                            tempWord = grid[x].at(y) + tempWord;
+                            break;
+                        case 1:
+                            x--;
+                            checkBounds(x, y, grid);
+                            tempWord = grid[x].at(y) + tempWord;
+                            break;
+                        case 2:
+                            x--; y++;
+                            checkBounds(x, y, grid);
+                            tempWord = grid[x].at(y) + tempWord;
+                            break;
+                        case 3:
+                            y--;
+                            checkBounds(x, y, grid);
+                            tempWord = grid[x].at(y) + tempWord;
+                            break;
+                        case 4:
+                            y++;
+                            checkBounds(x, y, grid);
+                            tempWord = grid[x].at(y) + tempWord;
+                            break;
+                        case 5:
+                            x++; y--;
+                            checkBounds(x, y, grid);
+                            tempWord = grid[x].at(y) + tempWord;
+                            break;
+                        case 6:
+                            x++;
+                            checkBounds(x, y, grid);
+                            tempWord = grid[x].at(y) + tempWord;
+                            break;
+                        case 7:
+                            x++; y++;
+                            checkBounds(x, y, grid);
+                            tempWord = grid[x].at(y) + tempWord;
+                            break;
+                    }
+                    if (x == posX  || y == posY)
                         break;
-                    // Add char to word
-                    tempWord = grid[rd].at(cd) + tempWord;
-                    possibleWords.push_back(tempWord);
-                    // Add dir to next word
-                    rd += x[dir], cd += y[dir];
+                    if (len > 5)
+                        // Add word
+                        possibleWords.push_back(tempWord);
                 }
+
             }
         }
     }
@@ -121,4 +173,22 @@ int main()
                 }
                 possibleWords.push_back(tempWord);
             }
+
+ / Wrap for rows, where if negative, goto end of row
+                    if (rowD < 0)
+                        rowD = grid.rows() - 1;
+                    // If row is at end, goto start of row
+                    else if (rowD >= grid.rows())
+                        rowD = 0;
+
+                    // If col is negative, goto end of col
+                    if (colD < 0)
+                        colD = grid.cols() - 1;
+                    // If col is at end goto start of col
+                    else if (colD >= grid.cols())
+                        colD = 0;
+
+                    // Check if we reached initial letter
+                    if (rowD == posY || colD == posX)
+                        break;
  */
