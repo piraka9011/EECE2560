@@ -77,7 +77,7 @@ void Dictionary::saveDict()
     outFile.close();
 }
 
-std::string Dictionary::searchWord(std::string word)
+int Dictionary::searchWord(std::string word)
 {
     int first = 0, last = stringDict.size() - 1, middle;
     // Loop until we found the value and our first search element is less than
@@ -87,24 +87,24 @@ std::string Dictionary::searchWord(std::string word)
         // Set our middle search position
         middle = (first + last) / 2;
         // If we found the word, return it
-        if (stringDict.at(middle) == word)
-        {
-            std::cout << word << " at position: " << middle << '\n';
-            return stringDict.at(middle);
-        }
+        if (stringDict.at(middle) < word)
+            first = middle + 1;
         // If the word in the middle is greater than our key word,
         // set the range to be the 'left' side.
         else if (stringDict.at(middle) > word)
             last = middle - 1;
         // If its greater, set the range to the 'right' side.
         else
-            first = middle + 1;
+        {
+            std::cout << "found: " << word << '\n';
+            return middle;
+        }
     }
-    return "Word not found";
+    return 0;
 }
 
-std::ostream& operator<<(std::ostream &os, Dictionary d)
+std::ostream& operator<< (std::ostream &os, Dictionary d)
 {
     for (int i = 0; i < d.getDict().size(); i++)
-        std::cout << d.getDict().at(i) << '\n';
+        os << d.getDict().at(i) << '\n';
 }

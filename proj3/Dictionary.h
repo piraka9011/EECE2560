@@ -20,9 +20,9 @@ private:
 public:
     Dictionary();
     void readDictionary();
-    friend std::ostream& operator<< (std::ostream& os, Dictionary d);
+    friend std::ostream& operator << (std::ostream& os, Dictionary d);
     void selectionSort();
-    std::string searchWord(std::string word);
+    int searchWord(std::string word);
     std::vector<std::string> getDict() { return stringDict; };
     bool isSaved() { return savedDict; };
     void saveDict();

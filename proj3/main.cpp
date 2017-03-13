@@ -1,23 +1,57 @@
+/**
+	EECE2560: Proj3a
+	main.cpp
+	Purpose: The main file implements the findMatches and search functions.
+    These functions get all possible words in the dictionary and check to
+    see if they are an actual word. It then prints all found words.
+	@author: Anas Abou Allaban & Turki Alrifaie
+	@version: 1.0 3/13/17
+*/
 #include "Dictionary.h"
 #include "Grid.h"
 
-void checkBounds(int& x, int& y, matrix<char> grid) {
+/**
+    A function to simplify the process of obtaining a word from the switch case.
+    Checks the boundaries of the grid and ensure a wrap is made. It returns
+    the complete word
+    @param: int x: Position x in the grid
+            int y: Position y in the grid
+            matrix<char> grid: The grid that contains the char matrix
+            string word: Our temp word
+    @return:string word: Our temp word with an added character according to position
+ */
+std::string getWord(int& x, int& y, matrix<char> grid, std::string word) {
+    // If col is negative, goto end of col
     if (x == -1)
         x = grid.cols() - 1;
+    // If col is over bound, goto start of col
     else if (x == grid.cols())
         x = 0;
+    // If row is negative, goto end of row
     if (y == -1)
         y = grid.rows() - 1;
+    // If row is out of bounds, goto start of row
     else if (y == grid.rows())
         y = 0;
+    // Return the word with added characters respectively
+    return word + grid[x].at(y);
 }
 
-void findMatches(Dictionary dict, Grid mat)
+/**
+    This function takes the dictionary and grid as inputs, searches the grid
+    for all possible words and checks to see it is an actual word. If it is,
+    print the word.
+    @param: Dictionary dict: dictionary that contains all the
+            int suit: suit of the card
+    @return:
+ */
+void findMatches(Dictionary& dict, Grid mat)
 {
     // Vector to store all possible words
     std::vector<std::string> possibleWords;
     // Temp variable to store a potential word
     std::string tempWord;
+    int answer1;
     // Get the grid matrix
     matrix<char> grid = mat.getMat();
     // Positions to move around
@@ -30,80 +64,64 @@ void findMatches(Dictionary dict, Grid mat)
             // Loop for directions
             for (int dir = 0; dir < 8; dir++)
             {
+                // Reset pos and temp word
                 int x = posX, y = posY;
                 tempWord = "";
-                for (int len = 0; len < grid.rows(); len++)
+                // Consider the length of the word (Max is size of grid)
+                for (int len = 0; len <= grid.rows(); len++)
                 {
                     // Consider each direction
                     switch (dir)
                     {
                         case 0:
                             x--;    y--;
-                            checkBounds(x, y, grid);
-                            tempWord = grid[x].at(y) + tempWord;
+                            tempWord = getWord(x, y, grid, tempWord);
                             break;
                         case 1:
                             x--;
-                            checkBounds(x, y, grid);
-                            tempWord = grid[x].at(y) + tempWord;
+                            tempWord = getWord(x, y, grid, tempWord);
                             break;
                         case 2:
                             x--; y++;
-                            checkBounds(x, y, grid);
-                            tempWord = grid[x].at(y) + tempWord;
+                            tempWord = getWord(x, y, grid, tempWord);
                             break;
                         case 3:
                             y--;
-                            checkBounds(x, y, grid);
-                            tempWord = grid[x].at(y) + tempWord;
+                            tempWord = getWord(x, y, grid, tempWord);
                             break;
                         case 4:
                             y++;
-                            checkBounds(x, y, grid);
-                            tempWord = grid[x].at(y) + tempWord;
+                            tempWord = getWord(x, y, grid, tempWord);
                             break;
                         case 5:
                             x++; y--;
-                            checkBounds(x, y, grid);
-                            tempWord = grid[x].at(y) + tempWord;
+                            tempWord = getWord(x, y, grid, tempWord);
                             break;
                         case 6:
                             x++;
-                            checkBounds(x, y, grid);
-                            tempWord = grid[x].at(y) + tempWord;
+                            tempWord = getWord(x, y, grid, tempWord);
                             break;
                         case 7:
                             x++; y++;
-                            checkBounds(x, y, grid);
-                            tempWord = grid[x].at(y) + tempWord;
+                            tempWord = getWord(x, y, grid, tempWord);
                             break;
+                        default:
+                            std::cout << "Enta 7mar 5ayo!?\n";
                     }
-                    if (x == posX  || y == posY)
-                        break;
-                    if (len > 5)
-                        // Add word
-                        possibleWords.push_back(tempWord);
-                }
 
+                    // Make sure we select words greater than 5
+                    // (considers 2 added characters)
+                    if (len > 3) {
+                        answer1 = dict.searchWord(tempWord);
+                        if (answer1)
+                            // Add word
+                            possibleWords.push_back(tempWord);
+                        /// Debugging only
+                        /// std::cout << "Word: " << tempWord << '\n';
+                    }
+                }
             }
         }
-    }
-
-    std::cout << "Finished getting all possible words...\n";
-    // Loop through all possible words and see if it matches a word in the dict
-    std::string notFound = "Word not found";
-    std::string answer;
-    for (int i = 0; i < possibleWords.size(); i++)
-    {
-        std::cout << "Word: " << possibleWords.at(i) << '\n';
-        answer = dict.searchWord(possibleWords.at(i));
-        // compare() RETURNS 0 IF TRUE!!!!!
-        // If the word is found, its a match
-        if (answer.compare(notFound))
-            std::cout << "Found a match! the word is: " << answer << '\n';
-        // Otherwise remove it from list of possible words
-        else
-            possibleWords.erase(possibleWords.begin() + i);
     }
 }
 
@@ -136,6 +154,7 @@ void search()
     // Find words and print them
     std::cout << "Matching...\n";
     findMatches(dict, fileGrid);
+    std::cout << "Finished getting all possible words...\n";
 }
 
 int main()
