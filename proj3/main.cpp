@@ -18,36 +18,21 @@ void findMatches(Dictionary dict, Grid mat)
     {
         for (int posY = 0; posY < grid.cols(); posY++)
         {
-            // TODO: Explain logic
-            // Inits the first letter to search around
             tempWord = grid[posX].at(posY);
-
-            // Move in all 8 directions
-            for(int direction = 0; direction < 8 ; direction++)
+            // Loop to get the up/down/left/right letters
+            for (int dir = 0; dir < 8; dir++)
             {
-                rowD = posX + x[direction];
-                colD = posY + y[direction];
-
-                while (rowD != posX || colD != posY)
+                int rd = posX + x[dir], cd = posY + y[dir];
+                for (int k = 0; k < grid.rows(); k++)
                 {
-
-                    //Wrap logic:
-                    // column wraps
-                    if (colD == grid.cols())
-                        colD = 0;
-                    if (colD == -1)
-                        colD = grid.cols() - 1;
-                    // row wraps
-                    if (rowD == grid.rows())
-                        rowD = 0;
-                    if (rowD == -1)
-                        rowD = grid.rows() - 1;
-
-                    // Turki: I don't know how to explain this? XD
-                    tempWord = tempWord + grid[rowD].at(colD);
-                    rowD =+ x[direction], colD = y[direction];
+                    if (rd >= posX || rd < 0 || cd >= posY || cd < 0)
+                        break;
+                    // Add char to word
+                    tempWord = grid[rd].at(cd) + tempWord;
+                    possibleWords.push_back(tempWord);
+                    // Add dir to next word
+                    rd += x[dir], cd += y[dir];
                 }
-                possibleWords.push_back(tempWord);
             }
         }
     }
@@ -58,6 +43,7 @@ void findMatches(Dictionary dict, Grid mat)
     std::string answer;
     for (int i = 0; i < possibleWords.size(); i++)
     {
+        std::cout << "Word: " << possibleWords.at(i) << '\n';
         answer = dict.searchWord(possibleWords.at(i));
         // compare() RETURNS 0 IF TRUE!!!!!
         // If the word is found, its a match
@@ -105,3 +91,34 @@ int main()
     search();
     return 0;
 }
+
+
+/*
+ * // Move in all 8 directions
+            for(int direction = 0; direction < 8 ; direction++)
+            {
+                rowD = posX + x[direction];
+                colD = posY + y[direction];
+
+                while (rowD != posX || colD != posY)
+                {
+
+                    //Wrap logic:
+                    // column wraps
+                    if (colD == grid.cols())
+                        colD = 0;
+                    if (colD == -1)
+                        colD = grid.cols() - 1;
+                    // row wraps
+                    if (rowD == grid.rows())
+                        rowD = 0;
+                    if (rowD == -1)
+                        rowD = grid.rows() - 1;
+
+                    // Turki: I don't know how to explain this? XD
+                    tempWord = tempWord + grid[rowD].at(colD);
+                    rowD =+ x[direction], colD = y[direction];
+                }
+                possibleWords.push_back(tempWord);
+            }
+ */
