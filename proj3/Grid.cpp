@@ -8,7 +8,7 @@ Grid::Grid(std::string matrixFile)
 {
     // Add directory to file
     // Ubuntu path /home/piraka9011/Desktop/algo_ws/proj3/
-    std::string fileName = "/home/piraka9011/Desktop/algo_ws/proj3/" + matrixFile;
+    std::string fileName = "C:/users/turki_000/Desktop/grid/" + matrixFile;
     // Open file
     std::ifstream inFile (fileName.c_str());
 

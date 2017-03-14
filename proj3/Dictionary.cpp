@@ -1,9 +1,10 @@
-//
-// Created by piraka9011 on 2/27/17.
-//
-
 #include "Dictionary.h"
 
+/**
+    A constructor that specifies the directory in which the sorted dictionary will be saved.
+    The saved file will be used if it was located other wise it will declare the file directory
+    of the unsorted dictionary.
+ */
 Dictionary::Dictionary()
 {
     // Ubuntu Path /home/piraka9011/Desktop/algo_ws/proj3/
@@ -17,6 +18,11 @@ Dictionary::Dictionary()
         fileDir = "/home/piraka9011/Desktop/algo_ws/proj3/dictionary.txt";
 }
 
+/**
+    This function opens the file dictionary and stores all of the contents into a vector.
+    @param: fildir refers to the directory where the sorted dictionary is located.
+    @return:
+  */
 void Dictionary::readDictionary()
 {
     // Temp string var
@@ -41,6 +47,10 @@ void Dictionary::readDictionary()
         std::cout << "ERROR: UNABLE TO OPEN FILE\n";
 }
 
+/**
+    This function sorts the contents of the dictionary using selection sort method.
+    The function also saves a sorted copy of the dictionary.
+ */
 void Dictionary::selectionSort()
 {
     int min = 0;
@@ -67,9 +77,13 @@ void Dictionary::selectionSort()
     saveDict();
 }
 
+/**
+    The function specifies the directory that the sorted dictionary will be saved where
+    it uses a fir loop to save each element in the output file.
+ */
 void Dictionary::saveDict()
 {
-    std::ofstream outFile("/home/piraka9011/Desktop/algo_ws/proj3/sortedDict.txt");
+    std::ofstream outFile("C:/users/turki_000/Desktop/grid/dictionary.txt");
     for (int i = 0; i < stringDict.size(); i++)
     {
         outFile << stringDict.at(i) << '\n';
@@ -77,6 +91,11 @@ void Dictionary::saveDict()
     outFile.close();
 }
 
+/**
+ * The function uses binary search method to search for the word in the sorted dictionary.
+ * @param word
+ * @return middle
+ */
 int Dictionary::searchWord(std::string word)
 {
     int first = 0, last = stringDict.size() - 1, middle;
@@ -103,6 +122,12 @@ int Dictionary::searchWord(std::string word)
     return 0;
 }
 
+/**
+ * overloaded operator that returns the string in the dictopnary at location i
+ * @param os
+ * @param d
+ * @return
+ */
 std::ostream& operator<< (std::ostream &os, Dictionary d)
 {
     for (int i = 0; i < d.getDict().size(); i++)
