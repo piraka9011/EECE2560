@@ -15,17 +15,18 @@ class Heap
 {
 private:
     std::vector<T> heap;
+    int heapSize;
 
 public:
-    Heap(Dictionary d);
+    Heap();
     int parent(int index) { return index/2; };
     int left(int index) { return index * 2; };
     int right(int index) { return index * 2 + 1; };
     int getItem(int index);
-    void initializeMaxHeap();
+    void initializeMaxHeap(std::vector<T> v);
     void maxHeapify(int i);
     void buildMaxHeap();
-    void heapsort();
+    std::vector<T> heapSort(std::vector<T> v);
 
 };
 

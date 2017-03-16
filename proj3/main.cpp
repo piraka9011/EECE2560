@@ -168,8 +168,6 @@ void search()
  */
 int main()
 {
-    //search();
-    int i = 5;
-    std::cout << 5/2 ;
+    search();
     return 0;
 }
