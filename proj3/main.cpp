@@ -14,11 +14,11 @@
     A function to simplify the process of obtaining a word from the switch case.
     Checks the boundaries of the grid and ensure a wrap is made. It returns
     the complete word
-    @param: int x: Position x in the grid
+    @param  int x: Position x in the grid
             int y: Position y in the grid
             matrix<char> grid: The grid that contains the char matrix
             string word: Our temp word
-    @return:string word: Our temp word with an added character according to position
+    @return string word: Our temp word with an added character according to position
  */
 std::string getWord(int& x, int& y, matrix<char> grid, std::string word) {
     // If col is negative, goto end of col
@@ -41,9 +41,8 @@ std::string getWord(int& x, int& y, matrix<char> grid, std::string word) {
     This function takes the dictionary and grid as inputs, searches the grid
     for all possible words and checks to see it is an actual word. If it is,
     print the word.
-    @param: Dictionary dict: dictionary that contains all the
-            int suit: suit of the card
-    @return:
+    @param Dictionary dict: Dictionary that contains all the words sorted
+            Grid mat: Matrix with input grid
  */
 void findMatches(Dictionary& dict, Grid mat)
 {
@@ -125,6 +124,10 @@ void findMatches(Dictionary& dict, Grid mat)
     }
 }
 
+/**
+    Reads in the grid file from the keyboard, creates and sorts the dictionary,
+    then uses findMatch() to find all words
+ */
 void search()
 {
     // User input file name
@@ -157,57 +160,14 @@ void search()
     std::cout << "Finished getting all possible words...\n";
 }
 
+
+/**
+    Main function simply calls the search function which conducts all necessary
+    operations.
+    @return 0
+ */
 int main()
 {
     search();
     return 0;
 }
-
-
-/*
- * // Move in all 8 directions
-            for(int direction = 0; direction < 8 ; direction++)
-            {
-                rowD = posX + x[direction];
-                colD = posY + y[direction];
-
-                while (rowD != posX || colD != posY)
-                {
-
-                    //Wrap logic:
-                    // column wraps
-                    if (colD == grid.cols())
-                        colD = 0;
-                    if (colD == -1)
-                        colD = grid.cols() - 1;
-                    // row wraps
-                    if (rowD == grid.rows())
-                        rowD = 0;
-                    if (rowD == -1)
-                        rowD = grid.rows() - 1;
-
-                    // Turki: I don't know how to explain this? XD
-                    tempWord = tempWord + grid[rowD].at(colD);
-                    rowD =+ x[direction], colD = y[direction];
-                }
-                possibleWords.push_back(tempWord);
-            }
-
- / Wrap for rows, where if negative, goto end of row
-                    if (rowD < 0)
-                        rowD = grid.rows() - 1;
-                    // If row is at end, goto start of row
-                    else if (rowD >= grid.rows())
-                        rowD = 0;
-
-                    // If col is negative, goto end of col
-                    if (colD < 0)
-                        colD = grid.cols() - 1;
-                    // If col is at end goto start of col
-                    else if (colD >= grid.cols())
-                        colD = 0;
-
-                    // Check if we reached initial letter
-                    if (rowD == posY || colD == posX)
-                        break;
- */

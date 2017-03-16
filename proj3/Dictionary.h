@@ -1,6 +1,12 @@
-//
-// Created by piraka9011 on 2/27/17.
-//
+/**
+	EECE2560: Proj3a
+	Dictionary.h
+	Purpose: This file provides the definitions for the Dictionary class.
+    It contains an overloaded output operator, functions to read, search and
+    sort the dictionary, and get the vector of words from the dictionary.
+	@author: Anas Abou Allaban & Turki Alrifaie
+	@version: 1.0 3/13/17
+*/
 
 #ifndef PROJ3_DICTIONARY_H
 #define PROJ3_DICTIONARY_H
@@ -13,8 +19,11 @@
 
 class Dictionary {
 private:
+    // Vector to store words
     std::vector<std::string> stringDict;
+    // Boolean to determine if the dictionary was previously sorted
     bool savedDict = false;
+    // File directory
     std::string fileDir = " ";
 
 public:
@@ -27,6 +36,5 @@ public:
     bool isSaved() { return savedDict; };
     void saveDict();
 };
-
 
 #endif //PROJ3_DICTIONARY_H
