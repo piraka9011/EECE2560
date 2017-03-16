@@ -69,6 +69,12 @@ void Dictionary::readDictionary()
         std::cout << "ERROR: UNABLE TO OPEN FILE\n";
 }
 
+void Dictionary::heapSort()
+{
+    Heap<std::string> h;
+    stringDict = h.heapSort(stringDict);
+}
+
 /**
     This function sorts the contents of the dictionary using selection sort method.
     The function also saves a sorted copy of the dictionary if it is not saved.
