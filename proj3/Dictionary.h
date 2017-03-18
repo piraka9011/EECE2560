@@ -38,6 +38,7 @@ public:
     int partition(int& left, int& right, std::string& pivot);
     //Trying to pass the values declared in the public function
     void quickSort(int left, int right);
+    void callqs();
     int searchWord(std::string word);
     std::vector<std::string> getDict() { return stringDict; };
     bool isSaved() { return savedDict; };

@@ -149,6 +149,12 @@ int Dictionary::partition(int& left, int& right, std::string& pivot)
     */
 }
 
+void Dictionary::callqs()
+{
+   quickSort(prleft,prright);
+
+
+}
 
 void Dictionary::quickSort(int left ,int right){
     //save the size of the vector and adjusted to get the last element iterator
@@ -156,10 +162,6 @@ void Dictionary::quickSort(int left ,int right){
     // used for comparison in the partition function
     std::string pivot = stringDict[p];
     int s;
-
-    //assigning initial values
-    left = prleft;
-    right = prright;
 
     //as long as the left element is smaller than the right
         if (left < right)

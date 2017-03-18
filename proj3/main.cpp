@@ -166,7 +166,7 @@ void search()
                 dict.heapSort();
                 break;
             case 3:
-                //dict.quickSort();
+                dict.callqs();
                 break;
             default:
                 std::cout<< "A7a yla\n";
