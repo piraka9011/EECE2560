@@ -130,6 +130,7 @@ void findMatches(Dictionary& dict, Grid mat)
  */
 void search()
 {
+    int choice;
     // User input file name
     std::string fileName;
     std::cout << "Enter the grid file name: ";
@@ -145,12 +146,31 @@ void search()
     std::cout << "Reading dictionary...\n";
     dict.readDictionary();
     std::cout << "Finished reading...\n";
+
+    std::cout << "Sort method..\n";
+    std::cout << "selection = 1...\n";
+    std::cout << "heap = 2...\n";
+    std::cout << "quick = 3...\n";
+    std::cin >> choice;
     // Check to see if it isn't sorted
     if (!dict.isSaved())
     {
         // If it isn't, sort
         std::cout << "Sorting...\n";
-        dict.selectionSort();
+        switch (choice)
+        {
+            case 1:
+                dict.selectionSort();
+                break;
+            case 2:
+                dict.heapSort();
+                break;
+            case 3:
+                //dict.quickSort();
+                break;
+            default:
+                std::cout<< "A7a yla\n";
+        }
     }
     std::cout << "Sorted!\n";
 
