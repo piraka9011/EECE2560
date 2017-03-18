@@ -106,6 +106,75 @@ void Dictionary::selectionSort()
         saveDict();
 }
 
+int Dictionary::partition(int& left, int& right, std::string& pivot)
+{
+
+    int l = left-1;
+    int r = right-1;
+
+    for (int j = l; j!= r; j++)
+    {
+        if(stringDict[j] <= pivot)
+        {
+            l=l+1;
+            swap(stringDict[l],stringDict[j]);
+        }
+    }
+    swap(stringDict[l+1],stringDict[r+1]);
+    return (l);
+
+    /*
+    while(1)
+    {
+        while (stringDict[++l] < pivot)
+        {
+            break;
+        }
+
+        while (stringDict[--r] >pivot && r >0)
+        {
+         break;
+        }
+
+        if (l >= r)
+        {
+            break;
+        }else
+            swap(l,r);
+
+        break;
+    }
+    swap(l,r);
+    return l;
+    */
+}
+
+
+void Dictionary::quickSort(int left ,int right){
+    //save the size of the vector and adjusted to get the last element iterator
+    int p = stringDict.size()-1;
+    // used for comparison in the partition function
+    std::string pivot = stringDict[p];
+    int s;
+
+    //assigning initial values
+    left = prleft;
+    right = prright;
+
+    //as long as the left element is smaller than the right
+        if (left < right)
+        {
+            // divide the list
+        s = partition(left,right, pivot);
+            //sort it and check it again
+            quickSort(left,s-1);
+            // sort it and check it again
+            quickSort(s+1,right);
+        }
+
+    }
+
+
 void Dictionary::saveDict()
 {
     std::ofstream outFile("/home/piraka9011/Desktop/algo_ws/proj3/sortedDict.txt");
