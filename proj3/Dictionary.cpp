@@ -26,19 +26,19 @@
 Dictionary::Dictionary()
 {
     /// CHANGE DIRECTORY HERE
-    std::ifstream savedFile("/home/piraka9011/Desktop/algo_ws/proj3/sortedDict.txt");
+    std::ifstream savedFile("/home/osboxes/algo_ws/proj3/sortedDict.txt");
     // Check to see if the dictionary was previously sorted
     if (savedFile.is_open()) {
         // If it is, set the directory accordingly and inform user
         savedDict = true;
         /// CHANGE DIRECTORY HERE
-        fileDir = "/home/piraka9011/Desktop/algo_ws/proj3/sortedDict.txt";
+        fileDir = "/home/osboxes/algo_ws/proj3/sortedDict.txt";
         std::cout << "Using previously sorted dictionary\n";
     }
     // Otherwise use default dictionary
     else
         /// CHANGE DIRECTORY HERE
-        fileDir = "/home/piraka9011/Desktop/algo_ws/proj3/dictionary.txt";
+        fileDir = "/home/osboxes/algo_ws/proj3/dictionary.txt";
 }
 
 /**
@@ -73,6 +73,9 @@ void Dictionary::heapSort()
 {
     Heap<std::string> h;
     stringDict = h.heapSort(stringDict);
+    // Save dictionary after sorting
+    if (!savedDict)
+        saveDict();
 }
 
 /**
@@ -106,80 +109,53 @@ void Dictionary::selectionSort()
         saveDict();
 }
 
-int Dictionary::partition(int& left, int& right, std::string& pivot)
+
+void Dictionary::quickSort()
 {
-
-    int l = left-1;
-    int r = right-1;
-
-    for (int j = l; j!= r; j++)
-    {
-        if(stringDict[j] <= pivot)
-        {
-            l=l+1;
-            swap(stringDict[l],stringDict[j]);
-        }
-    }
-    swap(stringDict[l+1],stringDict[r+1]);
-    return (l);
-
-    /*
-    while(1)
-    {
-        while (stringDict[++l] < pivot)
-        {
-            break;
-        }
-
-        while (stringDict[--r] >pivot && r >0)
-        {
-         break;
-        }
-
-        if (l >= r)
-        {
-            break;
-        }else
-            swap(l,r);
-
-        break;
-    }
-    swap(l,r);
-    return l;
-    */
+    int qsLeft = 0, qsRight = stringDict.size() - 1;
+    qs(qsLeft, qsRight);
+    // Save dictionary after sorting
+    if (!savedDict)
+       saveDict();
 }
 
-void Dictionary::callqs()
-{
-   quickSort(prleft,prright);
-
-
-}
-
-void Dictionary::quickSort(int left ,int right){
+void Dictionary::qs(int left, int right){
     //save the size of the vector and adjusted to get the last element iterator
-    int p = stringDict.size()-1;
-    // used for comparison in the partition function
-    std::string pivot = stringDict[p];
-    int s;
+    int l = left, r = right;
+    int pivot = (l+r) / 2;
+    std::string p = stringDict[pivot];
 
-    //as long as the left element is smaller than the right
-        if (left < right)
+    // Partition logic
+    // Loop while our left index is less than the right one
+    while (l <= r)
+    {
+        // Loop until we reach a value that needs to be swapped
+        while(stringDict.at(l) < p)
+            l++;
+        while(stringDict.at(r) > p)
+            r--;
+        // After looping, find a value that needs to be swapped
+        if (l <= r)
         {
-            // divide the list
-        s = partition(left,right, pivot);
-            //sort it and check it again
-            quickSort(left,s-1);
-            // sort it and check it again
-            quickSort(s+1,right);
+            // Swap and move to next index
+            std::swap(stringDict.at(l), stringDict.at(r));
+            l++;
+            r--;
         }
-
     }
+
+    // The 'left'/'right' index is less than our right/left, sort it
+    if (left < r)
+        qs(left, r);
+    if (l < right)
+        qs(l, right);
+}
 
 
 void Dictionary::saveDict()
 {
-    std::ofstream outFile("/home/piraka9011/Desktop/algo_ws/proj3/sortedDict.txt");
+    std::cout << "Saving dictionary...\n";
+    std::ofstream outFile("/home/osboxes/algo_ws/proj3/sortedDict.txt");
     for (int i = 0; i < stringDict.size(); i++)
     {
         outFile << stringDict.at(i) << '\n';

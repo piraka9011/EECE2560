@@ -26,8 +26,6 @@ private:
     bool savedDict = false;
     // File directory
     std::string fileDir = " ";
-    int prleft = 0;
-    int prright = stringDict.size()-2;
 
 public:
     Dictionary();
@@ -35,10 +33,10 @@ public:
     friend std::ostream& operator << (std::ostream& os, Dictionary d);
     void selectionSort();
     void heapSort();
-    int partition(int& left, int& right, std::string& pivot);
+    int partition(int left, int right);
     //Trying to pass the values declared in the public function
-    void quickSort(int left, int right);
-    void callqs();
+    void qs(int left, int right);
+    void quickSort();
     int searchWord(std::string word);
     std::vector<std::string> getDict() { return stringDict; };
     bool isSaved() { return savedDict; };

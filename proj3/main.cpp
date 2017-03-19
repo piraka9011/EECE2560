@@ -147,10 +147,11 @@ void search()
     dict.readDictionary();
     std::cout << "Finished reading...\n";
 
-    std::cout << "Please select a sorting method: \n";
+    std::cout << "Please select a sorting method \n";
     std::cout << "Selection Sort [1]\n";
     std::cout << "Heap Sort      [2]\n";
     std::cout << "Quick Sort     [3]\n";
+    std::cout << "Choice: ";
     std::cin >> choice;
     // Check to see if it isn't sorted
     if (!dict.isSaved())
@@ -166,7 +167,7 @@ void search()
                 dict.heapSort();
                 break;
             case 3:
-                dict.callqs();
+                dict.quickSort();
                 break;
             default:
                 std::cout<< "A7a yla\n";

@@ -20,7 +20,7 @@ public:
     int parent(int index) { return index/2; };
     int left(int index) { return index * 2; };
     int right(int index) { return index * 2 + 1; };
-    int getItem(int index);
+    int getItem(int index) { return heap.at(index); };
     void initializeMaxHeap(std::vector<T> v);
     void maxHeapify(int i);
     void buildMaxHeap();
@@ -41,18 +41,22 @@ void Heap<T>::initializeMaxHeap(std::vector<T> v)
 template <typename T>
 void Heap<T>::maxHeapify(int i)
 {
+    // Set vars
     int l = left(i);
     int r = right(i);
-    int large;
-    if (l <= heapSize && heap.at(l) > heap.at(i))
+    int large = i;
+    // Check if left child is larger than root
+    if (l < heapSize && heap.at(l) > heap.at(large))
         large = l;
-    else
-        large = i;
-    if (r <= heapSize && heap.at(r) > heap.at(i))
+    // Check if right child is larger than root
+    if (r < heapSize && heap.at(r) > heap.at(large))
         large = r;
+    // Check if the largest value is not the 'root'
     if (large != i)
     {
+        // If it isn't, swap the largest value with current index
         std::swap(heap.at(i), heap.at(large));
+        // Recursively heapify
         maxHeapify(large);
     }
 }
@@ -60,17 +64,23 @@ void Heap<T>::maxHeapify(int i)
 template <typename T>
 void Heap<T>::buildMaxHeap()
 {
-    for (int i = std::floor(heap.size()/2); i > 1; i++)
+    // Rearrange vector according to heap structure
+    for (int i = std::floor(heap.size()/2) - 1; i >= 1; i--)
         maxHeapify(i);
 }
 
 template <typename T>
 std::vector<T> Heap<T>::heapSort(std::vector<T> v)
 {
+    // Store Vector and its size in the private vars
     initializeMaxHeap(v);
+    // Build the Max Heap
     buildMaxHeap();
-    for (int i = heap.size(); i > 2; i++)
+    // Conduct the actual sorting
+    for (int i = heap.size() - 1; i >= 1; i--)
     {
+        // Swap first element with last position in unsorted array
+        // (first position in sorted)
         std::swap(heap.at(1), heap.at(i));
         heapSize--;
         maxHeapify(1);

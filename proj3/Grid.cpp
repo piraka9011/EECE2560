@@ -25,7 +25,7 @@ Grid::Grid(std::string matrixFile)
 {
     // Add directory to file
     /// CHANGE DIRECTORY HERE
-    std::string fileName = "/home/piraka9011/Desktop/algo_ws/proj3/" + matrixFile;
+    std::string fileName = "/home/osboxes/algo_ws/proj3/" + matrixFile;
     // Open file
     std::ifstream inFile (fileName.c_str());
 
