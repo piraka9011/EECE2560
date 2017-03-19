@@ -1,11 +1,18 @@
-//
-// Created by piraka9011 on 3/16/17.
-//
+/**
+	EECE2560: Proj3b
+	Heap.h
+	Purpose: This template class allows for the utilization of the heapSort
+    sorting algorithm for any kind of vector. For this project, heapSort
+    is conducted on a vector of strings.
+	@author: Anas Abou Allaban & Turki Alrifaie
+	@version: 1.0 3/13/17
+*/
+
 
 #ifndef PROJ3_HEAP_H
 #define PROJ3_HEAP_H
 
-#include <cmath>
+#include <cmath>    // std::floor
 #include <vector>
 
 template <typename T>
@@ -25,12 +32,21 @@ public:
     void maxHeapify(int i);
     void buildMaxHeap();
     std::vector<T> heapSort(std::vector<T> v);
-
 };
 
+/**
+ * Constructor for the Heap object. No work needed here
+ * @tparam T
+ */
 template <typename T>
 Heap<T>::Heap() {}
 
+/**
+ * This function copies the vector into the heap vector and stores the size
+ * in a priveate variable that is used later on during the sorting process.
+ * @tparam T
+ * @param v: A vector that contains the list to be sorted
+ */
 template <typename T>
 void Heap<T>::initializeMaxHeap(std::vector<T> v)
 {
@@ -38,6 +54,12 @@ void Heap<T>::initializeMaxHeap(std::vector<T> v)
     heapSize = heap.size();
 }
 
+/**
+ * maxHeapify takes an index and checks to see if the current subset of nodes
+ * follow the Max Heap properties. If not, it adjusts the nodes accordingly
+ * @tparam T
+ * @param i: The index of the node to check
+ */
 template <typename T>
 void Heap<T>::maxHeapify(int i)
 {
@@ -61,6 +83,11 @@ void Heap<T>::maxHeapify(int i)
     }
 }
 
+/**
+ * This is the second step in the heapSort algorithm, where a list is built
+ * into a max heap starting from the center and working up the list
+ * @tparam T
+ */
 template <typename T>
 void Heap<T>::buildMaxHeap()
 {
@@ -69,6 +96,13 @@ void Heap<T>::buildMaxHeap()
         maxHeapify(i);
 }
 
+/**
+ * The main heapSort function conducts all necessary calls to helper functions
+ * and conducts the sorting process using the Heap Sort algorithm
+ * @tparam T
+ * @param v: A list or vector to heapify and sort
+ * @return heap: The sorted heap vector
+ */
 template <typename T>
 std::vector<T> Heap<T>::heapSort(std::vector<T> v)
 {

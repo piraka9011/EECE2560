@@ -22,7 +22,6 @@ private:
 public:
     Grid(std::string matrixFile);
     matrix<char> getMat() { return charMat; }
-
 };
 
 #endif //PROJ3_GRID_H

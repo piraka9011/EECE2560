@@ -33,16 +33,12 @@ public:
     friend std::ostream& operator << (std::ostream& os, Dictionary d);
     void selectionSort();
     void heapSort();
-    int partition(int left, int right);
-    //Trying to pass the values declared in the public function
     void qs(int left, int right);
     void quickSort();
     int searchWord(std::string word);
     std::vector<std::string> getDict() { return stringDict; };
     bool isSaved() { return savedDict; };
     void saveDict();
-
-
 };
 
 #endif //PROJ3_DICTIONARY_H

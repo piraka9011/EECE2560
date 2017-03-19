@@ -69,8 +69,13 @@ void Dictionary::readDictionary()
         std::cout << "ERROR: UNABLE TO OPEN FILE\n";
 }
 
+/**
+ * This function creates the Heap object to sort the dictionary and then passes
+ * the dictionary vector to the Heap object's heapSorting function.
+ */
 void Dictionary::heapSort()
 {
+    // Create heap object and sort
     Heap<std::string> h;
     stringDict = h.heapSort(stringDict);
     // Save dictionary after sorting
@@ -109,23 +114,35 @@ void Dictionary::selectionSort()
         saveDict();
 }
 
-
+/**
+ * This function provides the initial call to the quickSort function. It
+ * initializes the left and right indices of the vector and passes them to
+ * the quickSort function to be sorted
+ */
 void Dictionary::quickSort()
 {
+    // Init left and right
     int qsLeft = 0, qsRight = stringDict.size() - 1;
+    // First call to qs
     qs(qsLeft, qsRight);
     // Save dictionary after sorting
     if (!savedDict)
        saveDict();
 }
 
+/**
+ * The main quickSort function that is recursively called and sorts the list
+ * according to the Quick Sort algorithm.
+ * @param left: The current 'left' index of the list
+ * @param right: The current 'right' index of the list
+ */
 void Dictionary::qs(int left, int right){
-    //save the size of the vector and adjusted to get the last element iterator
+    // Adjust the current 'left'/'right'/pivot index positions
     int l = left, r = right;
     int pivot = (l+r) / 2;
     std::string p = stringDict[pivot];
 
-    // Partition logic
+    // Partition:
     // Loop while our left index is less than the right one
     while (l <= r)
     {
@@ -151,7 +168,10 @@ void Dictionary::qs(int left, int right){
         qs(l, right);
 }
 
-
+/**
+ * Simple function to save the dictionary after sorting. Saves time and useful
+ * to see if dictionary was actually sorted properly.
+ */
 void Dictionary::saveDict()
 {
     std::cout << "Saving dictionary...\n";
