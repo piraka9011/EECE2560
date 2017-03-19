@@ -147,10 +147,10 @@ void search()
     dict.readDictionary();
     std::cout << "Finished reading...\n";
 
-    std::cout << "Sort method..\n";
-    std::cout << "selection = 1...\n";
-    std::cout << "heap = 2...\n";
-    std::cout << "quick = 3...\n";
+    std::cout << "Please select a sorting method: \n";
+    std::cout << "Selection Sort [1]\n";
+    std::cout << "Heap Sort      [2]\n";
+    std::cout << "Quick Sort     [3]\n";
     std::cin >> choice;
     // Check to see if it isn't sorted
     if (!dict.isSaved())
