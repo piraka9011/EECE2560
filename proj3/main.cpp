@@ -115,8 +115,6 @@ void findMatches(Dictionary& dict, Grid mat)
                         if (answer1)
                             // Add word
                             possibleWords.push_back(tempWord);
-                        /// Debugging only
-                        /// std::cout << "Word: " << tempWord << '\n';
                     }
                 }
             }
@@ -128,9 +126,8 @@ void findMatches(Dictionary& dict, Grid mat)
     Reads in the grid file from the keyboard, creates and sorts the dictionary,
     then uses findMatch() to find all words
  */
-void search()
+void search(int choice)
 {
-    int choice;
     // User input file name
     std::string fileName;
     std::cout << "Enter the grid file name: ";
@@ -138,21 +135,11 @@ void search()
 
     // Create Grid object
     Grid fileGrid(fileName.c_str());
-    std::cout << "Created grid...\n";
     // Establish Dictionary
     Dictionary dict;
-    std::cout << "Created dictionary...\n";
     // Read the words
-    std::cout << "Reading dictionary...\n";
     dict.readDictionary();
-    std::cout << "Finished reading...\n";
 
-    std::cout << "Please select a sorting method \n";
-    std::cout << "Selection Sort [1]\n";
-    std::cout << "Heap Sort      [2]\n";
-    std::cout << "Quick Sort     [3]\n";
-    std::cout << "Choice: ";
-    std::cin >> choice;
     // Check to see if it isn't sorted
     if (!dict.isSaved())
     {
@@ -189,6 +176,15 @@ void search()
  */
 int main()
 {
-    search();
+    // Prompt user with sorting algo
+    int choice;
+    std::cout << "Please select a sorting method \n";
+    std::cout << "Selection Sort [1]\n";
+    std::cout << "Heap Sort      [2]\n";
+    std::cout << "Quick Sort     [3]\n";
+    std::cout << "Choice: ";
+    std::cin >> choice;
+    // INITIATION
+    search(choice);
     return 0;
 }
