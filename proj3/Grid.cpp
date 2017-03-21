@@ -24,8 +24,11 @@
 Grid::Grid(std::string matrixFile)
 {
     // Add directory to file
-    /// CHANGE DIRECTORY HERE
-    std::string fileName = "/home/osboxes/algo_ws/proj3/" + matrixFile;
+
+    /// CHANGE DIRECTORY HERE   /////////////////////////////////////////
+    std::string fileName = "/home/pineapple/algo_ws/proj3/" + matrixFile;
+    /////////////////////////////////////////////////////////////////////
+
     // Open file
     std::ifstream inFile (fileName.c_str());
 
@@ -39,19 +42,11 @@ Grid::Grid(std::string matrixFile)
         // Resize matrix accordingly
         charMat.resize(row, col);
 
-        /// DEBUGGING
-        /// std::cout << "row: " << row << " col: " << col;
         // Loop through rows and cols, store data in char matrix
         for (int i = 0; i < row; i++)
         {
             for (int j = 0; j < col; j++)
-            {
                 inFile >> charMat[i].at(j);
-                /// DEBUGGING
-                ///std::cout << charMat[i].at(j);
-            }
-            /// DEBUGGING
-            ///std::cout << '\n';
         }
     }
     else

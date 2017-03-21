@@ -5,7 +5,7 @@
     sorting algorithm for any kind of vector. For this project, heapSort
     is conducted on a vector of strings.
 	@author: Anas Abou Allaban & Turki Alrifaie
-	@version: 1.0 3/13/17
+	@version: 1.0 3/21/17
 */
 
 
@@ -115,9 +115,9 @@ std::vector<T> Heap<T>::heapSort(std::vector<T> v)
     {
         // Swap first element with last position in unsorted array
         // (first position in sorted)
-        std::swap(heap.at(1), heap.at(i));
+        std::swap(heap.at(0), heap.at(i));
         heapSize--;
-        maxHeapify(1);
+        maxHeapify(0);
     }
     return heap;
 }

@@ -3,10 +3,11 @@
 	Dictionary.cpp
 	Purpose: This file provides the implementation for the Dictionary class.
     It allows for reading in the dictionary words to a vector, sorting them
-    using the very very efficient selection sort,and then searching the
-    dictionary for a word using the very very inefficient binary search.
+    using the very very efficient selection sort (or inefficient heap &
+    quick sort!) and then searching the dictionary for a word using the
+    very very inefficient binary search.
 	@author: Anas Abou Allaban & Turki Alrifaie
-	@version: 1.0 3/13/17
+	@version: 2.0 3/21/17
 */
 
 #include "Dictionary.h"
@@ -15,30 +16,20 @@
     A constructor that specifies the directory in which the sorted dictionary
     will be saved.The saved file will be used if it was located, otherwise it
     will declare the file directory of the unsorted dictionary.
-                                **** NOTE TO TA ****
-    Please note that this program was tested on Ubuntu 14.04. Other students
-    reported errors with opening the file the way we do. Please make sure that
-    you put in the correct file path extension.
-    If the file is in the same directory as the project, you may not need to
-    add the file path extension.
-    ***************************************************************************
  */
 Dictionary::Dictionary()
 {
-    /// CHANGE DIRECTORY HERE
-    std::ifstream savedFile("/home/osboxes/algo_ws/proj3/sortedDict.txt");
+    std::ifstream savedFile(sortDir.c_str());
     // Check to see if the dictionary was previously sorted
     if (savedFile.is_open()) {
         // If it is, set the directory accordingly and inform user
         savedDict = true;
-        /// CHANGE DIRECTORY HERE
-        fileDir = "/home/osboxes/algo_ws/proj3/sortedDict.txt";
+        fileDir = sortDir;
         std::cout << "Using previously sorted dictionary\n";
     }
     // Otherwise use default dictionary
     else
-        /// CHANGE DIRECTORY HERE
-        fileDir = "/home/osboxes/algo_ws/proj3/dictionary.txt";
+        fileDir = unsortDir;
 }
 
 /**
@@ -175,7 +166,7 @@ void Dictionary::qs(int left, int right){
 void Dictionary::saveDict()
 {
     std::cout << "Saving dictionary...\n";
-    std::ofstream outFile("/home/osboxes/algo_ws/proj3/sortedDict.txt");
+    std::ofstream outFile(sortDir.c_str());
     for (int i = 0; i < stringDict.size(); i++)
     {
         outFile << stringDict.at(i) << '\n';

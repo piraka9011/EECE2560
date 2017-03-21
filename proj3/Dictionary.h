@@ -5,7 +5,7 @@
     It contains an overloaded output operator, functions to read, search and
     sort the dictionary, and get the vector of words from the dictionary.
 	@author: Anas Abou Allaban & Turki Alrifaie
-	@version: 1.0 3/13/17
+	@version: 2.0 3/21/17
 */
 
 #ifndef PROJ3_DICTIONARY_H
@@ -17,7 +17,15 @@
 #include <fstream>      // i/ofstream
 #include <iostream>     // cout/cin
 #include <vector>       // swap
-
+/**
+ *                                 **** NOTE TO TA ****
+    Please note that this program was tested on Ubuntu 14.04. Other students
+    reported errors with opening the file the way we do. Please make sure that
+    you put in the correct file path extension.
+    If the file is in the same directory as the project, you may not need to
+    add the file path extension.
+    ***************************************************************************
+ */
 class Dictionary {
 private:
     // Vector to store words
@@ -26,6 +34,10 @@ private:
     bool savedDict = false;
     // File directory
     std::string fileDir = " ";
+    /// CHANGE DIRECTORY HERE   ///////////////////////////////////////////
+    std::string sortDir = "/home/pineapple/algo_ws/proj3/sortedDict.txt";
+    std::string unsortDir = "/home/pineapple/algo_ws/proj3/dictionary.txt";
+    ///////////////////////////////////////////////////////////////////////
 
 public:
     Dictionary();
