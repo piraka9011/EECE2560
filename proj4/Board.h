@@ -1,4 +1,16 @@
-#pragma once
+/**
+	EECE2560: Proj4a
+	Board.h
+	Purpose: The Board header file contains all the function definitions for
+ 	the board. We also define certain constants for the board such as the
+ 	size of the board and what a blank is.
+	@author: Anas Abou Allaban & Turki Alrifaie
+	@version: 1.0 3/28/17
+*/
+
+#ifndef PROJ4_BOARD_H
+#define PROJ4_BOARD_H
+
 #include <iostream>
 #include <limits.h>
 #include "d_matrix.h"
@@ -12,7 +24,7 @@ typedef int valueType; // The type of the value in a cell
 const int blank = -1;  // Indicates that a cell is blank
 
 const int squareSize = 3;  //  The number of cells in a small square
-						   //  (usually 3).  The board has
+						   //  (usually 3).  The Board has
 						   //  squareSize^2 rows and squareSize^2
 						   //  columns.
 
@@ -21,11 +33,11 @@ const int boardSize = squareSize * squareSize;
 const int minValue = 1;
 const int maxValue = 9;
 
-class board
-	// Stores the entire Sudoku board
+class Board
+	// Stores the entire Sudoku Board
 {
 public:
-	board(int);
+	Board(int);
 	void clear();
 	void initialize(ifstream &fin);
 	void print();
@@ -49,3 +61,5 @@ private:
 	matrix<bool> colConf;				//col conflict
 	matrix<bool> sqrConf;				//square conflict
 };
+
+#endif	//PROJ4_BOARD_H
