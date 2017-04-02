@@ -37,7 +37,7 @@ class Board
 	// Stores the entire Sudoku Board
 {
 public:
-	Board(int);
+	Board();
 	void clear();
 	void initialize(ifstream &fin);
 	void print();
@@ -46,12 +46,18 @@ public:
 	void printConflicts();
 	void rmvConflict(int, int, valueType val);
 	void addConflict(int, int, valueType val);
+    void moveOn();
 
-	valueType getCell(int i, int j);
+    int getNumIterations() const;
+
+    valueType getCell(int i, int j);
 
 	bool isBlank(int, int);
 	bool isSolved();
 	bool isConflict(int, int, valueType val);
+
+    matrix<valueType> solve();
+
 private:
 
 	// The following matrices go from 1 to boardSize in each
@@ -60,6 +66,10 @@ private:
 	matrix<bool> rowConf;				//row conflict
 	matrix<bool> colConf;				//col conflict
 	matrix<bool> sqrConf;				//square conflict
+    int numIterations;
+    int row;
+    int col;
+    bool boardIsSolved;
 };
 
 #endif	//PROJ4_BOARD_H

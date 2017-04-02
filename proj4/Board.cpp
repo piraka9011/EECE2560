@@ -35,7 +35,7 @@ ostream &operator<< (ostream &ostr, vector<int> &v) {
 /**
  * Initialize the board and set the sizes of the conflict matrices
  */
-Board::Board(int squareSize)
+Board::Board()
 	: value(boardSize + 1, boardSize + 1),
 	rowConf(boardSize + 1, boardSize + 1),
 	colConf(boardSize + 1, boardSize + 1),
@@ -47,6 +47,9 @@ Board::Board(int squareSize)
  */
 void Board::initialize(ifstream &fin)
 {
+    numIterations = 0;
+    row = 1;
+    col = 1;
     // Temp char variable
     char ch;
     // Clear our current Board
@@ -121,11 +124,11 @@ void  Board::setCell(int i, int j, valueType val)
 }
 
 /**
-	Returns the value stored in cel[i[[j]
-
-	@param: row i col j
-	@return: valueType value
-*/
+ * Returns the value stored in cel[i[[j]
+ *
+ * @param: row i col j
+ * @return: valueType value
+ */
 valueType Board::getCell(int i, int j)
 
 {
@@ -181,7 +184,7 @@ void Board::rmvConflict(int i, int j, valueType val)
  * @param: i: row index
  *         j: col index
  * @return: bool: true if blank, false if full
-*/
+ */
 bool Board::isBlank(int i, int j)
 {
     // Check if the index are within bounds
@@ -201,7 +204,7 @@ bool Board::isBlank(int i, int j)
  *         j: col index
  *         val: value to update
  * @return: boolean: true or false for conflict
-*/
+ */
 bool Board::isConflict(int i, int j, valueType val)
 {
     // Check if the index are within bounds
@@ -219,11 +222,9 @@ bool Board::isConflict(int i, int j, valueType val)
 }
 
 /**
-	Determines if the board is solved
-	
-	@param:
-	@return: bool true false
-*/
+ * Determines if the board is solved
+ * @return: bool true false
+ */
 bool Board::isSolved()
 {
     // Loop through all conflict matrices and check if they are true
@@ -231,7 +232,7 @@ bool Board::isSolved()
 		for (int j = 1; j <= boardSize; j++)
 			if (!(rowConf[i][j] && colConf[i][j] && sqrConf[i][j]))
             {
-                cout << "Board is not solved yet!" << endl;
+                // cout << "Board is not solved yet!" << endl;
                 return false;
             }
 
@@ -310,4 +311,78 @@ void Board::print()
 		cout << "---";
 	cout << "-";
 	cout << endl;
+}
+
+/**
+	Function determines which row,col to solve next based on which "row,col" has
+	the lowest number of possible solutions
+
+	@param: board, row, col
+	@return:
+*/
+void Board::moveOn()
+{
+    int numSol;																	//!< num of possible sol
+    for (int k = minValue; k <= maxValue; k++) 												//!< Iterate through board looking for one possible solution, and then onward
+    {
+        for (int r = 1; r <= boardSize; r++) 									//!< Iterates through entirety of board
+        {
+            for (int c = 1; c <= boardSize; c++)
+            {
+                if (isBlank(r, c)) 										//!< Is row,col blank?
+                {
+                    numSol = 0;
+                    for (valueType val = minValue; val <= maxValue; val++) 		//!< Iterate through each val... if no conflicts, increment numSol
+                    {
+                        if (isConflict(r, c, val))
+                        {
+                            numSol++;
+                        }
+                    }
+                    if (numSol <= k)
+                    {
+                        row = r;
+                        col = c;
+                        return;
+                    }
+                }
+            }
+        }
+    }
+}
+
+matrix<valueType> Board::solve()
+{
+    // Increment iteration for each call
+    numIterations++;
+    // Set the minValue
+    valueType val = minValue;
+    // Check if board is solved
+    boardIsSolved = isSolved();
+    // Loop until the board is solved and we reached the max digit
+    while (!boardIsSolved && val < maxValue)
+    {
+        // If no conflict, set the cell to the digit
+        if (!isConflict(row, col, val))
+        {
+            setCell(row, col, val);
+            // Goto next Location
+            moveOn();
+            solve();
+            boardIsSolved = isSolved();
+            // Backtrack as needed
+            if(!boardIsSolved)
+            {
+                clearCell(row, col);
+                val++;
+            }
+        }
+        else
+            val++;
+    }
+    return value;
+}
+
+int Board::getNumIterations() const {
+    return numIterations;
 }
