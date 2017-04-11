@@ -48,8 +48,7 @@ Board::Board()
 void Board::initialize(ifstream &fin)
 {
     numIterations = 0;
-    row = 1;
-    col = 1;
+    boardIsSolved = isSolved();
     // Temp char variable
     char ch;
     // Clear our current Board
@@ -320,25 +319,31 @@ void Board::print()
 	@param: board, row, col
 	@return:
 */
-void Board::moveOn()
+void Board::moveOn(int& row, int& col)
 {
-    int numSol;																	//!< num of possible sol
-    for (int k = minValue; k <= maxValue; k++) 												//!< Iterate through board looking for one possible solution, and then onward
+    int numSol;
+    // Iterate through board looking for one possible solution, and then onward
+    for (int k = minValue; k <= maxValue; k++)
     {
-        for (int r = 1; r <= boardSize; r++) 									//!< Iterates through entirety of board
+        // Iterates through entirety of board
+        for (int r = 1; r <= boardSize; r++)
         {
             for (int c = 1; c <= boardSize; c++)
             {
-                if (isBlank(r, c)) 										//!< Is row,col blank?
+                // Check if position is blank
+                if (isBlank(r, c))
                 {
                     numSol = 0;
-                    for (valueType val = minValue; val <= maxValue; val++) 		//!< Iterate through each val... if no conflicts, increment numSol
+                    // Iterate through each digit
+                    for (valueType val = minValue; val <= maxValue; val++)
                     {
-                        if (isConflict(r, c, val))
+                        // If no conflict found, increment num soln
+                        if (!isConflict(r, c, val))
                         {
                             numSol++;
                         }
                     }
+                    // If num of soln is less than digit, set digit position
                     if (numSol <= k)
                     {
                         row = r;
@@ -351,24 +356,23 @@ void Board::moveOn()
     }
 }
 
-matrix<valueType> Board::solve()
+void Board::solve(int row, int col)
 {
     // Increment iteration for each call
     numIterations++;
     // Set the minValue
     valueType val = minValue;
-    // Check if board is solved
-    boardIsSolved = isSolved();
     // Loop until the board is solved and we reached the max digit
-    while (!boardIsSolved && val < maxValue)
+    while (!boardIsSolved && val <= maxValue)
     {
         // If no conflict, set the cell to the digit
         if (!isConflict(row, col, val))
         {
             setCell(row, col, val);
             // Goto next Location
-            moveOn();
-            solve();
+            int moveonRow = row, moveonCol = col;
+            moveOn(moveonRow, moveonCol);
+            solve(moveonRow, moveonCol);
             boardIsSolved = isSolved();
             // Backtrack as needed
             if(!boardIsSolved)
@@ -380,9 +384,13 @@ matrix<valueType> Board::solve()
         else
             val++;
     }
-    return value;
+    return;
 }
 
-int Board::getNumIterations() const {
+int Board::getNumIterations() {
     return numIterations;
+}
+
+void Board::setNumIterations(int numIterations) {
+    Board::numIterations = numIterations;
 }

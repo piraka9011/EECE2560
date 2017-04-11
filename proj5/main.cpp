@@ -14,50 +14,7 @@
 
 using namespace std;
 
-/**
-	Function marks all the nodes in the graph as "unvisited"
-	essentially resetting the entire graph
-	@param: Graph g
-*/
-void clearVisited(Graph &g)
-{
-	pair<Graph::vertex_iterator, Graph::vertex_iterator> vertxRange = vertices(g);
-	for (Graph::vertex_iterator vertxIter = vertxRange.first;
-	vertxIter != vertxRange.second; ++vertxIter)
-	{
-		g[*vertxIter].visited = false;
-	}
-}
 
-/**
-	Set all node weights to passed weight
-	
-	@param: Graph g, int weight
-*/
-void setNodeWeights(Graph &g, int w)
-{
-	pair<Graph::vertex_iterator, Graph::vertex_iterator> vertxRange = vertices(g);
-	for (Graph::vertex_iterator vertxIter = vertxRange.first;
-	vertxIter != vertxRange.second; ++vertxIter)
-	{
-		g[*vertxIter].weight = w;
-	}
-}
-
-/**
-	Function clears all marked nodes
-	
-	@param: graph
-*/
-void clearMarked(Graph &g)
-{
-	pair<Graph::vertex_iterator, Graph::vertex_iterator> vertxRange = vertices(g);
-	for (Graph::vertex_iterator vertxIter = vertxRange.first;
-	vertxIter != vertxRange.second; ++vertxIter) 
-	{
-		g[*vertxIter].marked = false;
-	}
-}
 
 /**
 	Output operator for the Graph class. Prints out all nodes and their
@@ -123,9 +80,27 @@ int main()
 
 		setNodeWeights(g, 1);
 
-		cout << g;
+		Graph::vertex_descriptor start = m.vertxGet(0, 0);
+		Graph::vertex_descriptor end = m.vertxGet(m.numRows() - 1, m.numCols() - 1);
 
-		cout << g << endl;
+		stack<Graph::vertex_descriptor> p1, p2, p3, p4;
+
+		bool solnRecur = m.findPathDFSRecursive(g, start, end, p1);
+		cout << "DFS Recursive, Path Size: " << p1.size() << endl;
+
+		bool solnStack = m.findPathDFSNonRecursive(g, start, end, p2);
+		cout << "DFS Stack, Path Size: " << p2.size() << endl;
+
+		if (isSolution)
+		{
+			cout << "Solution found, printing path . . ." << endl;
+			Sleep(3000);
+			m.printPath(end, p4, g);
+		}
+		else
+		{
+			cout << "No path exists" << endl;
+		}
 	}
 	catch (baseException & be) {
 		cout << be.what() << endl;

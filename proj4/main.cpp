@@ -17,17 +17,22 @@
 */
 void moveOn(Board& board, int& i, int& j)
 {
-    int numSol;																	//!< num of possible sol
-    for (int k = minValue; k <= maxValue; k++) 												//!< Iterate through board looking for one possible solution, and then onward
+    // Num of possible sol
+    int numSol;
+    // Iterate through board looking for one possible solution, and then onward
+    for (int k = minValue; k <= maxValue; k++)
     {
-        for (int r = 1; r <= boardSize; r++) 									//!< Iterates through entirety of board
+        // Iterates through entirety of board
+        for (int r = 1; r <= boardSize; r++)
         {
             for (int c = 1; c <= boardSize; c++)
             {
-                if (board.isBlank(r, c)) 										//!< Is row,col blank?
+                // Is position blank?
+                if (board.isBlank(r, c))
                 {
                     numSol = 0;
-                    for (valueType val = minValue; val <= maxValue; val++) 		//!< Iterate through each val... if no conflicts, increment numSol
+                    // Iterate through each val... if no conflicts, increment numSol
+                    for (valueType val = minValue; val <= maxValue; val++)
                     {
                         if (!board.isConflict(r, c, val))
                         {
@@ -52,21 +57,25 @@ void moveOn(Board& board, int& i, int& j)
 	@return: true or false
 */
 bool IsSolved(Board& board, int i, int j, int& numIterations) {
-    numIterations++; 																//!< Number of iterations
+    // Increment iteration for each call
+    numIterations++;
+    // Set the minValue;
     valueType val = minValue;
     bool isolved = board.isSolved();
-
-    while (!isolved && val <= maxValue) 											//!< Keep calling isSolved while not solved and less than maxval
+    // Keep calling isSolved while not solved and less than maxval
+    while (!isolved && val <= maxValue)
     {
-
-        if (!board.isConflict(i, j, val)) 										//!< If not conflict, set the cell to that val
+        // If no conflict, set the cell to that val
+        if (!board.isConflict(i, j, val))
         {
             board.setCell(i, j, val);
             int moveonI = i, moveonJ = j;
+            // Next Location
             moveOn(board, moveonI, moveonJ);
-            isolved = IsSolved(board, moveonI, moveonJ, numIterations);				//!< Next Location
+            isolved = IsSolved(board, moveonI, moveonJ, numIterations);
 
-            if (!isolved) 															//!< Backtrack as necessary...
+            // Backtrack as necessary...
+            if (!isolved)
             {
                 board.clearCell(i, j);
                 val++;
@@ -84,9 +93,10 @@ int main()
     // Vars for iterations & board
     int totalItr = 0;
     int numBoards = 0;
+    int row = 1, col = 1;
 	// Read the sample grid from the file.
     ifstream fin;
-	string fileName = "/home/osboxes/algo_ws/proj4/sudoku.txt";
+	string fileName = "/home/piraka9011/algo_ws/proj4/sudoku1.txt";
     // Open the file
 	fin.open(fileName.c_str());
     // Check if opened
@@ -101,18 +111,16 @@ int main()
 	{
 		while (fin && fin.peek() != 'Z')
 		{
-            // Init board
-			b1.initialize(fin);
-            // Solve
-            b1.moveOn();
-            b1.solve();
-            // Update vars
-            totalItr += b1.getNumIterations();
+            int i, j, numIterations = 0;
+            b1.initialize(fin);
+            moveOn(b1, i, j);
+            IsSolved(b1, i, j, numIterations);
+            totalItr += numIterations;
             numBoards++;
-			b1.print();
-            cout << "Total number of calls for board " << numBoards << ": "
-                 << b1.getNumIterations() << '\n';
-		}
+            b1.print();
+            cout << "Total number of calls for this board: " << numIterations <<  endl;
+
+        }
         int avgItr = totalItr / numBoards;
         cout << "Average number of calls over " << numBoards << " boards: "
              << avgItr << '\n';
@@ -141,4 +149,19 @@ int main()
 		int avgIter = totIter / numbrd;
 		cout << "Running average of isSolved function: " << avgIter << endl;
 	}
+ */
+
+/*
+ *             // Init board
+			b1.initialize(fin);
+            // Solve
+            b1.moveOn(row, col);
+            b1.solve(row, col);
+            // Print results
+			b1.print();
+            cout << "Total number of calls for board " << numBoards << ": "
+                 << b1.getNumIterations() << '\n';
+            // Update vars
+            totalItr += b1.getNumIterations();
+            numBoards++; row = 1; col = 1;
  */

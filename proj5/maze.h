@@ -44,9 +44,6 @@ struct EdgeProperties
     bool marked;
 };
 
-#define LargeValue 99999999
-
-
 class maze
 {
 public:
@@ -59,6 +56,17 @@ public:
                    Graph g);
     int numRows() { return rows; };
     int numCols() { return cols; };
+    Graph::vertex_descriptor vertxGet(int i, int j) { return vertices[i][j]; }
+    void clearVisited(Graph&);
+    void setNodeWeights(Graph&, int);
+    void clearMarked(Graph&);
+    void clearPreds(Graph&);
+    bool findPathDFSRecursive(Graph&, Graph::vertex_descriptor,
+                              Graph::vertex_descriptor, stack<Graph::vertex_descriptor>&);
+    bool findPathDFSNonRecursive(Graph&, Graph::vertex_descriptor,
+                              Graph::vertex_descriptor, stack<Graph::vertex_descriptor>&);
+    bool maze::traverseDFSRecursive(Graph&, Graph::vertex_descriptor,
+                                    Graph::vertex_descriptor, stack<Graph::vertex_descriptor>&);
 
 private:
     int rows; // number of rows in the maze

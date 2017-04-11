@@ -118,3 +118,165 @@ void maze::printPath(Graph::vertex_descriptor end,
 			g[vertxCur].cell.first, g[vertxCur].cell.second);
 	}
 }
+
+/**
+	Function marks all the nodes in the graph as "unvisited"
+	essentially resetting the entire graph
+	@param: Graph g
+*/
+void maze::clearVisited(Graph &g)
+{
+	pair<Graph::vertex_iterator, Graph::vertex_iterator> vertxRange = vertices(g);
+	for (Graph::vertex_iterator vertxIter = vertxRange.first;
+		 vertxIter != vertxRange.second; ++vertxIter)
+	{
+		g[*vertxIter].visited = false;
+	}
+}
+
+/**
+	Clears the Predecessors
+
+	@param: Graph g
+*/
+void maze::clearPreds(Graph &g)
+{
+	pair<Graph::vertex_iterator, Graph::vertex_iterator> vertxRange = vertices(g);
+	for (Graph::vertex_iterator vertxIter = vertxRange.first;
+		 vertxIter != vertxRange.second; ++vertxIter) {
+		g[*vertxIter].pred = -1;
+	}
+}
+
+/**
+	Set all node weights to passed weight
+
+	@param: Graph g, int weight
+*/
+void maze::setNodeWeights(Graph &g, int w)
+{
+	pair<Graph::vertex_iterator, Graph::vertex_iterator> vertxRange = vertices(g);
+	for (Graph::vertex_iterator vertxIter = vertxRange.first;
+		 vertxIter != vertxRange.second; ++vertxIter)
+	{
+		g[*vertxIter].weight = w;
+	}
+}
+
+/**
+	Function clears all marked nodes
+
+	@param: graph
+*/
+void maze::clearMarked(Graph &g)
+{
+	pair<Graph::vertex_iterator, Graph::vertex_iterator> vertxRange = vertices(g);
+	for (Graph::vertex_iterator vertxIter = vertxRange.first;
+		 vertxIter != vertxRange.second; ++vertxIter)
+	{
+		g[*vertxIter].marked = false;
+	}
+}
+
+/**
+	A recursive Depth First Search function
+	@param: Graph h, vertex_descriptor (start v), vertex_descriptor (end v),
+			vertex_descriptor (the path)
+	@return: bool true false
+*/
+bool maze::findPathDFSRecursive(Graph& g, Graph::vertex_descriptor head,
+						  Graph::vertex_descriptor tail, stack<Graph::vertex_descriptor>& path) {
+	clearVisited(g);
+	return traverseDFSRecursive(g, head, tail, path);
+}
+
+/**
+	Depth-First Search method utilizing a stack instead of Recursion
+
+		@param: Graph h, vertex_descriptor (start v), vertex_descriptor (end v),
+				vertex_descriptor (the path)
+		@return: bool true false
+*/
+bool maze::findPathDFSNonRecursive(Graph& g, Graph::vertex_descriptor head,
+					  Graph::vertex_descriptor tail, stack<Graph::vertex_descriptor>& path)
+{
+	maze::clearVisited(g);
+	bool isLocated = false;
+	stack<Graph::vertex_descriptor> hVertc;								//!< Start Vertice
+	hVertc.push(head);
+	Graph::vertex_descriptor vertxCur;									//!< Current vertx
+
+	while (!hVertc.empty() && !isLocated)
+	{
+		vertxCur = hVertc.top();
+		hVertc.pop();
+		if (!g[vertxCur].visited)										//!< If the vertex is end and not visited, true
+		{
+			if (vertxCur == tail)
+			{
+				isLocated = true;
+			}
+			g[vertxCur].visited = true;
+			pair<Graph::adjacency_iterator, Graph::adjacency_iterator>
+					vertxRange = adjacent_vertices(vertxCur, g);
+			for (Graph::adjacency_iterator vertxIter = vertxRange.first;
+				 vertxIter != vertxRange.second; ++vertxIter)
+			{															//!< Loop through entirety of stack
+				if (!g[*vertxIter].visited)
+				{
+					g[*vertxIter].pred = vertxCur;
+					hVertc.push(*vertxIter);
+				}
+			}
+		}
+	}
+	if (isLocated)
+	{
+		while (vertxCur != -1)
+		{
+			path.push(vertxCur);
+			vertxCur = g[vertxCur].pred;
+		}
+	}
+	return isLocated;
+}
+
+/**
+Function for recursive depth first search. Traverses through graph.
+
+@param: Graph, vertex_descriptor (vertex), vertex_descritor (end),
+vertex_descriptor (the path)
+@return: boolean
+*/
+bool maze::traverseDFSRecursive(Graph& g, Graph::vertex_descriptor v,
+						  Graph::vertex_descriptor tail, stack<Graph::vertex_descriptor>& path)
+{
+	//Check if we are at the tail
+	if (v == tail) 																//!< Are we at the end of the v or not?
+	{
+		path.push(v);
+		return true;
+	}
+	else
+	{
+		g[v].visited = true;
+		bool isLocated = false;
+		pair<Graph::adjacency_iterator, Graph::adjacency_iterator>
+				vertxRange = adjacent_vertices(v, g);
+
+		for (Graph::adjacency_iterator vertxIter = vertxRange.first;
+			 vertxIter != vertxRange.second; ++vertxIter)
+		{
+			if (!g[*vertxIter].visited) 										//!< If visited, recurse
+			{
+				isLocated = traverseDFSRecursive(g, *vertxIter, tail, path);
+			}
+			if (isLocated) break;
+		}
+		if (isLocated)
+		{
+			path.push(v);
+		}
+		return isLocated;
+	}
+}

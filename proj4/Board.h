@@ -7,7 +7,6 @@
 	@author: Anas Abou Allaban & Turki Alrifaie
 	@version: 1.0 3/28/17
 */
-
 #ifndef PROJ4_BOARD_H
 #define PROJ4_BOARD_H
 
@@ -46,9 +45,9 @@ public:
 	void printConflicts();
 	void rmvConflict(int, int, valueType val);
 	void addConflict(int, int, valueType val);
-    void moveOn();
+    void moveOn(int&, int&);
 
-    int getNumIterations() const;
+    int getNumIterations();
 
     valueType getCell(int i, int j);
 
@@ -56,7 +55,9 @@ public:
 	bool isSolved();
 	bool isConflict(int, int, valueType val);
 
-    matrix<valueType> solve();
+    void solve(int, int);
+
+    void setNumIterations(int numIterations);
 
 private:
 
@@ -67,8 +68,6 @@ private:
 	matrix<bool> colConf;				//col conflict
 	matrix<bool> sqrConf;				//square conflict
     int numIterations;
-    int row;
-    int col;
     bool boardIsSolved;
 };
 
