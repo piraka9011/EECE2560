@@ -57,15 +57,12 @@ public:
     int numRows() { return rows; };
     int numCols() { return cols; };
     Graph::vertex_descriptor vertxGet(int i, int j) { return vertices[i][j]; }
-    void clearVisited(Graph&);
-    void setNodeWeights(Graph&, int);
-    void clearMarked(Graph&);
-    void clearPreds(Graph&);
+    friend void clearVisit(Graph&);
     bool findPathDFSRecursive(Graph&, Graph::vertex_descriptor,
                               Graph::vertex_descriptor, stack<Graph::vertex_descriptor>&);
     bool findPathDFSNonRecursive(Graph&, Graph::vertex_descriptor,
                               Graph::vertex_descriptor, stack<Graph::vertex_descriptor>&);
-    bool maze::traverseDFSRecursive(Graph&, Graph::vertex_descriptor,
+    bool traverseDFSRecursive(Graph&, Graph::vertex_descriptor,
                                     Graph::vertex_descriptor, stack<Graph::vertex_descriptor>&);
 
 private:

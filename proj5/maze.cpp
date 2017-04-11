@@ -70,6 +70,7 @@ bool maze::isLegal(int i, int j)
 
 	return value[i][j];
 }
+
 /**
 Function creates a graph 'g' that symbolizes all the legal moves in the
 provided maze 'm'
@@ -78,7 +79,8 @@ provided maze 'm'
 */
 void maze::mapMazeToGraph(Graph &g)
 {
-	for (int i = 0; i < rows; i++)										//!< Loops around the entire maze
+	//!< Loops around the entire maze
+	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < cols; j++)
 		{
@@ -124,7 +126,7 @@ void maze::printPath(Graph::vertex_descriptor end,
 	essentially resetting the entire graph
 	@param: Graph g
 */
-void maze::clearVisited(Graph &g)
+void clearVisit(Graph &g)
 {
 	pair<Graph::vertex_iterator, Graph::vertex_iterator> vertxRange = vertices(g);
 	for (Graph::vertex_iterator vertxIter = vertxRange.first;
@@ -134,49 +136,6 @@ void maze::clearVisited(Graph &g)
 	}
 }
 
-/**
-	Clears the Predecessors
-
-	@param: Graph g
-*/
-void maze::clearPreds(Graph &g)
-{
-	pair<Graph::vertex_iterator, Graph::vertex_iterator> vertxRange = vertices(g);
-	for (Graph::vertex_iterator vertxIter = vertxRange.first;
-		 vertxIter != vertxRange.second; ++vertxIter) {
-		g[*vertxIter].pred = -1;
-	}
-}
-
-/**
-	Set all node weights to passed weight
-
-	@param: Graph g, int weight
-*/
-void maze::setNodeWeights(Graph &g, int w)
-{
-	pair<Graph::vertex_iterator, Graph::vertex_iterator> vertxRange = vertices(g);
-	for (Graph::vertex_iterator vertxIter = vertxRange.first;
-		 vertxIter != vertxRange.second; ++vertxIter)
-	{
-		g[*vertxIter].weight = w;
-	}
-}
-
-/**
-	Function clears all marked nodes
-
-	@param: graph
-*/
-void maze::clearMarked(Graph &g)
-{
-	pair<Graph::vertex_iterator, Graph::vertex_iterator> vertxRange = vertices(g);
-	for (Graph::vertex_iterator vertxIter = vertxRange.first;
-		 vertxIter != vertxRange.second; ++vertxIter)
-	{
-		g[*vertxIter].marked = false;
-	}
-}
 
 /**
 	A recursive Depth First Search function
@@ -185,8 +144,9 @@ void maze::clearMarked(Graph &g)
 	@return: bool true false
 */
 bool maze::findPathDFSRecursive(Graph& g, Graph::vertex_descriptor head,
-						  Graph::vertex_descriptor tail, stack<Graph::vertex_descriptor>& path) {
-	clearVisited(g);
+						  Graph::vertex_descriptor tail, stack<Graph::vertex_descriptor>& path)
+{
+	clearVisit(g);
 	return traverseDFSRecursive(g, head, tail, path);
 }
 
@@ -200,17 +160,20 @@ bool maze::findPathDFSRecursive(Graph& g, Graph::vertex_descriptor head,
 bool maze::findPathDFSNonRecursive(Graph& g, Graph::vertex_descriptor head,
 					  Graph::vertex_descriptor tail, stack<Graph::vertex_descriptor>& path)
 {
-	maze::clearVisited(g);
+	clearVisit(g);
 	bool isLocated = false;
-	stack<Graph::vertex_descriptor> hVertc;								//!< Start Vertice
+	//!< Start Vertice
+	stack<Graph::vertex_descriptor> hVertc;
 	hVertc.push(head);
-	Graph::vertex_descriptor vertxCur;									//!< Current vertx
+	//!< Current vertx
+	Graph::vertex_descriptor vertxCur;
 
 	while (!hVertc.empty() && !isLocated)
 	{
 		vertxCur = hVertc.top();
 		hVertc.pop();
-		if (!g[vertxCur].visited)										//!< If the vertex is end and not visited, true
+		//!< If the vertex is end and not visited, true
+		if (!g[vertxCur].visited)
 		{
 			if (vertxCur == tail)
 			{
@@ -219,9 +182,10 @@ bool maze::findPathDFSNonRecursive(Graph& g, Graph::vertex_descriptor head,
 			g[vertxCur].visited = true;
 			pair<Graph::adjacency_iterator, Graph::adjacency_iterator>
 					vertxRange = adjacent_vertices(vertxCur, g);
+			//!< Loop through entirety of stack
 			for (Graph::adjacency_iterator vertxIter = vertxRange.first;
 				 vertxIter != vertxRange.second; ++vertxIter)
-			{															//!< Loop through entirety of stack
+			{
 				if (!g[*vertxIter].visited)
 				{
 					g[*vertxIter].pred = vertxCur;
@@ -252,7 +216,8 @@ bool maze::traverseDFSRecursive(Graph& g, Graph::vertex_descriptor v,
 						  Graph::vertex_descriptor tail, stack<Graph::vertex_descriptor>& path)
 {
 	//Check if we are at the tail
-	if (v == tail) 																//!< Are we at the end of the v or not?
+	// Are we at the end of the v or not?
+	if (v == tail)
 	{
 		path.push(v);
 		return true;
@@ -267,7 +232,8 @@ bool maze::traverseDFSRecursive(Graph& g, Graph::vertex_descriptor v,
 		for (Graph::adjacency_iterator vertxIter = vertxRange.first;
 			 vertxIter != vertxRange.second; ++vertxIter)
 		{
-			if (!g[*vertxIter].visited) 										//!< If visited, recurse
+			// If visited, recurse
+			if (!g[*vertxIter].visited)
 			{
 				isLocated = traverseDFSRecursive(g, *vertxIter, tail, path);
 			}
