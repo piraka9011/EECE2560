@@ -281,76 +281,88 @@ bool findShortestPath1(Graph& g,
     return isLocated;
 }
 
-Graph::vertex_descriptor getMinWeight(Graph g, Graph::vertex_descriptor start)
-{
-    // Get node with min distance from source
-    pair<Graph::adjacency_iterator, Graph::adjacency_iterator>
-            nodeRange = adjacent_vertices(start, g);
-    Graph::vertex_descriptor minWeight = *nodeRange.first;
-    for (Graph::adjacency_iterator itr = nodeRange.first;
-         itr != nodeRange.second; ++itr)
-    {
-        if (g[*itr].weight < minWeight && !g[*itr].isVisited)
-            minWeight = *itr;
-    }
-
-    return minWeight;
-}
-
-void updateValues(Graph& g,
-                  Graph::vertex_descriptor u,
-                  Graph::vertex_descriptor v)
-{
-    pair<Graph::edge_descriptor, bool> edg = edge(u, v, g);
-    if (g[v].weight > (g[u].weight + g[edg.first].weight))
-    {
-        g[v].weight = g[u].weight + g[edg.first].weight;
-        g[v].prev_node = u;
-    }
-}
-
 bool findShortestPath2(Graph& g,
-                       Graph::vertex_descriptor start)
+                       Graph::vertex_descriptor start,
+                       Graph::vertex_descriptor goal,
+                       stack<Graph::vertex_descriptor>& path)
 {
     // Clean up
-    clearVisited(g);
+    clearVisited(g);    // Mark all vertices unvisited
+    clearVisitedEdge(g);
     clearPrev(g);
 
-    // Init Dijkstra by setting all nodes to 'infinity' and starting node as 0
-    setNodeWeights(g, MaxNumNodex);
-    g[start].weight = 0;
+    // Init Dijkstra
+    setNodeWeights(g, MaxNumNodex); // Set shortest path = inf
+    setEdgeWeights(g, 1);
+    g[start].weight = 0;            // Set sp for startVertex = 0
 
-    // Get shortest path for all nodes
-    Graph::vertex_descriptor minWeight;
+    // Push all vertices into priority queue
+    priority_queue<Graph::vertex_descriptor,
+                   vector<Graph::vertex_descriptor>,
+                   greater<Graph::vertex_descriptor> > dijkstraQ;
     pair<Graph::vertex_iterator, Graph::vertex_iterator> nodeRange = vertices(g);
     for (Graph::vertex_iterator nodeItr = nodeRange.first;
          nodeItr != nodeRange.second; ++nodeItr)
-    {
-        // Get node with minimum weight
-        minWeight = getMinWeight(g, *nodeItr);
-        g[minWeight].isVisited = true;
+        dijkstraQ.push(*nodeItr);
 
-        // Update values of adjacent vertices
-        pair<Graph::adjacency_iterator, Graph::adjacency_iterator>
-                uRange = adjacent_vertices(minWeight, g);
-        for (Graph::adjacency_iterator uIter = uRange.first;
-             uIter != uRange.second; ++uIter)
+    Graph::vertex_descriptor currNode;
+    bool isLocated = false;
+
+    // Get shortest path: loop while pQ not empty and path not found
+    while(!dijkstraQ.empty() && !isLocated)
+    {
+        // Get node with minimum weight (v)
+        currNode = dijkstraQ.top();
+        dijkstraQ.pop();
+
+        if (currNode == goal)
+            isLocated = true;
+        else
         {
-            pair<Graph::edge_descriptor, bool> e = edge(minWeight, *uIter, g);
-            if (g[e.first].weight < 0)
-                return false;
-            updateValues(g, minWeight, *uIter);
+            // Mark v as visited
+            g[currNode].isVisited = true;
+
+            // For all unvisited neighbors w of v
+            pair<Graph::adjacency_iterator, Graph::adjacency_iterator>
+                    uRange = adjacent_vertices(currNode, g);
+            for (Graph::adjacency_iterator uIter = uRange.first;
+                 uIter != uRange.second; ++uIter)
+            {
+                // Check if not visited
+                if (!g[*uIter].isVisited)
+                {
+                    pair<Graph::edge_descriptor, bool> e = edge(*uIter, currNode, g);
+                    g[*uIter].weight = min(g[*uIter].weight,
+                                           g[currNode].weight + g[e.first].weight);
+
+                    // If is new shortest path (weight change) set parent w to v
+                    if (g[*uIter].weight == g[currNode].weight + g[e.first].weight)
+                        g[*uIter].prev_node = currNode;
+                }
+            }
         }
     }
-    return true;
+    // Create path if path is found
+    if (isLocated)
+    {
+        currNode = goal;
+        while (currNode != start)
+        {
+            path.push(currNode);
+            currNode = g[currNode].prev_node;
+        }
+        path.push(start);
+    }
+    return isLocated;
 }
+
 // Main function
 int main()
 {
     try
     {
         // Read the maze from the file.
-        string fileName = "/home/osboxes/algo_ws/proj5/maze1.txt";
+        string fileName = "/home/osboxes/algo_ws/proj5/maze2.txt";
         ifstream fin;
 
         // Open the file
@@ -386,33 +398,42 @@ int main()
         bool foundNonRecursivePath = findPathNonRecursive(g, start, end,
                                                           nonRecursivePath);
         bool foundBFSPath = findShortestPath1(g, start, end, bfsPath);
+        bool foundDijkstraPath = findShortestPath2(g, start, end, dijkstraPath);
 
         // Check if a path was found using recursion
-        if (foundRecursivePath)
+//        if (foundRecursivePath)
+//        {
+//            cout << "Found recursive path.\n";
+//            m.printPath(end, recursivePath, g);
+//        }
+//        else
+//            cout << "No recursive path exists.\n";
+//
+//        // Check if a path was found using stack based DFS
+//        if (foundNonRecursivePath)
+//        {
+//            cout << "Found non-recursive path.\n";
+//            m.printPath(end, nonRecursivePath, g);
+//        }
+//        else
+//            cout << "No non-recursive path exists.\n";
+//
+//        // Check if a path was found using queue based BFS
+//        if (foundBFSPath)
+//        {
+//            cout << "Found BFS path.\n";
+//            m.printPath(end, bfsPath, g);
+//        }
+//        else
+//            cout << "No BFS path exists.\n";
+//        // Check if a path was found using queue based BFS
+        if (foundDijkstraPath)
         {
-            cout << "Found recursive path.\n";
-            m.printPath(end, recursivePath, g);
+            cout << "Found Dijkstra path.\n";
+            m.printPath(end, dijkstraPath, g);
         }
         else
-            cout << "No recursive path exists.\n";
-
-        // Check if a path was found using stack based DFS
-        if (foundNonRecursivePath)
-        {
-            cout << "Found non-recursive path.\n";
-            m.printPath(end, nonRecursivePath, g);
-        }
-        else
-            cout << "No non-recursive path exists.\n";
-
-        // Check if a path was found using queue based BFS
-        if (foundBFSPath)
-        {
-            cout << "Found BFS path.\n";
-            m.printPath(end, bfsPath, g);
-        }
-        else
-            cout << "No BFS path exists.\n";
+            cout << "No Dijkstra path exists.\n";
     }
     catch (indexRangeError &ex)
     {

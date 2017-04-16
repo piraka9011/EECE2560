@@ -22,7 +22,6 @@
 
 #include "d_matrix.h"
 #include "d_except.h"
-#include "graph.h"
 
 using namespace std;
 using namespace boost;
@@ -30,6 +29,8 @@ using namespace boost;
 // Define the properties associated with a node and edge
 struct NodeProperties;
 struct EdgeProperties;
+
+int const MaxNumNodex = 9999;
 
 // Create an adjacency list to mimic graph
 typedef adjacency_list<vecS, vecS, bidirectionalS, NodeProperties,
