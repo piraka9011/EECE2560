@@ -10,6 +10,7 @@
 #ifndef PROJ5_MAZE_H
 #define PROJ5_MAZE_H
 
+#include <algorithm>
 #include <iostream>
 #include <list>
 #include <limits.h>
