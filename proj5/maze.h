@@ -1,10 +1,10 @@
 /**
- *  EECE2560: Proj5a
+ *  EECE2560: Proj5b
  *	maze.h
  *	Purpose: This file has the implementation of the maze object that holds the
  *	valid visiting locations and the ability to print and edit them accordingly.
  *	@author: Anas Abou Allaban & Turki Alrifaie
- *	@version: 1.0 4/15/17
+ *	@version: 2.0 4/20/17
  */
 
 #ifndef PROJ5_MAZE_H

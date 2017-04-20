@@ -1,10 +1,11 @@
 /**
- *  EECE2560: Proj5a
+ *  EECE2560: Proj5b
  *	main.cpp
- *	Purpose: The main file has all the DFS path finding functions and simulates
- *	the traversal of the map.
+ *	Purpose: The main file has all the path finding functions and simulates
+ *	the traversal of the map. It also finds the shortest paths using BFS and
+ *	Dijkstra's algorithm.
  *	@author: Anas Abou Allaban & Turki Alrifaie
- *	@version: 1.0 4/15/17
+ *	@version: 2.0 4/20/17
  */
 
 #include "maze.h"
